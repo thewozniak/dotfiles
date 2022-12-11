@@ -14,7 +14,7 @@ In addition to configuring macOS to the default settings I use, the following co
 - Pecl
 - MongoDB
 
-During the installation process, there is a possibility to enter additional packages to be installed, but if they are available in homebrew repository.
+During the installation process, there is a possibility to enter additional packages to be installed - only if they are available in homebrew repository.
 
 ## Install
 
