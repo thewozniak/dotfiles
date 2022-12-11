@@ -38,8 +38,15 @@ case "$WHAT_ENV" in
     # Make directory /.dotfiles
     mkdir ${HOME}/.dotfiles
     # Download and run the files
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/set-defaults.sh -o ${HOME}/.dotfiles/set-defaults.sh)" &&
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/install.sh -o ${HOME}/.dotfiles/install.sh)" &&
+    # Download the scripts using curl
+    curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/set-defaults.sh > ${HOME}/.dotfiles/set-defaults.sh
+    curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/install.sh > ${HOME}/.dotfiles/install.sh
+    # Make the scripts executable
+    chmod +x ${HOME}/.dotfilesset-defaults.sh
+    chmod +x ${HOME}/.dotfilesinstall.sh
+    # Run the scripts one after the other
+    .${HOME}/.dotfiles/set-defaults.sh
+    .${HOME}/.dotfiles/install.sh    
     # Delete the /.dotfiles directory and all of its contents
     rm -r ${HOME}/.dotfiles
 
