@@ -459,3 +459,5 @@ do killall "${app}" > /dev/null 2>&1 done
 
 # Display information about the need to restart the machine
 echo "DONE! Note that some of these changes require a restart to take effect."
+
+exit
