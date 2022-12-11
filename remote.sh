@@ -42,13 +42,13 @@ case "$WHAT_ENV" in
     curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/set-defaults.sh > ${HOME}/.dotfiles/set-defaults.sh
     curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/install.sh > ${HOME}/.dotfiles/install.sh
     # Make the scripts executable
-    chmod +x ${HOME}/.dotfilesset-defaults.sh
-    chmod +x ${HOME}/.dotfilesinstall.sh
+    chmod +x ${HOME}/.dotfiles/set-defaults.sh
+    chmod +x ${HOME}/.dotfiles/install.sh
     # Run the scripts one after the other
     .${HOME}/.dotfiles/set-defaults.sh
     .${HOME}/.dotfiles/install.sh    
     # Delete the /.dotfiles directory and all of its contents
-    rm -r ${HOME}/.dotfiles
+    #rm -r ${HOME}/.dotfiles
 
     echo "Done. You're ready to fly! ;)"
 
