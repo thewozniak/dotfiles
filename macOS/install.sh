@@ -1,9 +1,16 @@
 #!/bin/sh
 
 # Ask the user if they want to prepare the development environment
+echo # just an empty line ;)
 read -p "Do you want to prepare the development environment? [y/n] " answer
 
 if [ "$answer" != "${answer#[Yy]}" ]; then
+
+# Ask for the administrator password upfront
+sudo -v
+
+# Keep-alive: update existing `sudo` time stamp until `set-default.sh` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Determine the machine hardware name
 machine=$(uname -m)
@@ -21,7 +28,7 @@ database=()
 if xcode-select -p -q > /dev/null; then
   # Xcode is already installed
   # No action needed
-  echo -e "Xcode is already installed. Skipping...\n"
+  echo -e "\nXcode is already installed. Skipping..."
 else
   # Xcode is not installed
   # Install Xcode command-line tools
@@ -38,7 +45,7 @@ if test ! $(which brew); then
 else
   brew update
   brew_version=$(brew --version)
-  echo -e "The currently installed version of Homebrew is $brew_version\n"  
+  echo -e "\nThe currently installed version of Homebrew is $brew_version"  
 fi
 
 # Install nginx using Homebrew
@@ -52,14 +59,16 @@ if [ "$machine" = "x86_64" ]; then
   # The machine hardware is "x86_64"
   # Use the path for the Nginx configuration file on x86-64 Macs
   conf_file="/usr/local/etc/nginx/nginx.conf"
+  brew_path="/usr/local"
 elif [ "$machine" = "arm64" ]; then
   # The machine hardware is "arm64"
   # Use the path for the Nginx configuration file on Apple Silicon Macs
   conf_file="/opt/homebrew/etc/nginx/nginx.conf"
+  brew_path="/opt/homebrew"
 else
   # The machine hardware is unknown
   # Print an error message and exit the script
-  echo -e "Error: Unknown machine hardware.\n"
+  echo -e "\nError: Unknown machine hardware."
   exit 1
 fi
 
@@ -150,10 +159,10 @@ else
 
     # The php.ini file does not exist
     # Display an error message
-    echo -e "Error: The file /usr/local/etc/php/$php_version/php.ini does not exist.\n"
+    echo -e "\nError: The file $brew_path/etc/php/$php_version/php.ini does not exist."
 
     # Create php.ini file
-    touch /usr/local/etc/php/$php_version/php.ini
+    touch $brew_path/etc/php/$php_version/php.ini
 
     # Edit the file and add the line "extension=mongodb.so"
     #echo "extension=mongodb.so" >> $php_ini
@@ -171,10 +180,12 @@ install_more_packages=true
 while [ $install_more_packages == true ]
 do
   # Ask the user if they want to install additional packages
+  echo # another empty line ;)
   read -p "Do you want to install any additional packages from the Homebrew repository? [y/n] " answer
 
   if [ "$answer" != "${answer#[Yy]}" ]; then
     # Ask the user for the name of the package they want to install
+    echo # and another one ;))
     read -p "Enter the name of the package you want to install: " package
 
     # Check if the package is present in the Homebrew repository
@@ -182,7 +193,7 @@ do
 
     # If the package is not present, display an error message
     if [ $? -ne 0 ]; then
-      echo "Error: Package $package is not present in the Homebrew repository."
+      echo -e "\nError: Package $package is not present in the Homebrew repository."
     else
       # The package is present in the repository
       # Install the package using Homebrew
@@ -200,10 +211,10 @@ done
 # Download the .zshrc file to your home directory
 curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/.zshrc -o ~/.zshrc
 
-echo -e "The following packages and libraries have been installed:\n"
+echo -e "\nThe following packages and libraries have been installed:"
 for item in "${database[@]}"
 do
-echo -e "- $item\n"
+echo -e "- $item"
 done
 
 else
