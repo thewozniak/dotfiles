@@ -27,25 +27,25 @@ case "$computer_name" in
     ;;             
 esac
 echo # empty line ;)
-echo "Setting up computer name to: $computer_name"
+echo "[Setting up] computer name to: $computer_name"
 sudo scutil --set ComputerName $computer_name
 
 # Replace any spaces in the computer name with hyphens
 local_host_name=${computer_name// /-}
 
 # Set the local host name
-echo "Setting up localhost name to: $local_host_name"
+echo "[Setting up] localhost name to: $local_host_name"
 sudo scutil --set LocalHostName $local_host_name
 
 # Ask the user to choose the appearance
-echo "Setting up appearance to: Light "
+echo "[Setting up] appearance to: Light "
 defaults write -g "AppleInterfaceStyle" "Light"
 
 #######################################################################
 # Regional Settsings & Language (System Preferences → General)
 #######################################################################
 
-echo "Setting up clock settings..."
+echo "[Setting up] clock settings..."
 
 # Show the clock in the menu bar with seconds
 defaults write com.apple.menuextra.clock IsAnalog -bool false
@@ -65,7 +65,7 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bo
 # Software Updates (System Preferences → General → Updates)
 #######################################################################
 
-echo "Setting up an updates settings..."
+echo "[Setting up] software updates settings..."
 
 # Enable automatic checking for updates
 defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
@@ -82,7 +82,7 @@ defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -bool true
 # AirDrop & Handoff (System Preferences → General → AirDrop)
 #######################################################################
 
-echo "Setting up Handoff & AirDrop settings..."
+echo "[Setting up] Handoff & AirDrop settings..."
 
 # Enable Handoff
 defaults write com.apple.coreservices.useractivityd ActivityAdvertisingAllowed -bool true
@@ -94,7 +94,7 @@ defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool false
 # Time Machine (System Preferences → General → Time Machine)
 #######################################################################
 
-echo "Setting up Time Machine settings..."
+echo "[Setting up] Time Machine settings..."
 
 # Prevent Time Machine from prompting to use new hard drives as a backup volume
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
@@ -103,7 +103,7 @@ defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 # Finder and Appearance (System Preferences → Appearance)
 #######################################################################
 
-echo "Setting up Finder settings..."
+echo "[Setting up] Finder settings..."
 
 # Show hard drives on the desktop
 defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
@@ -183,7 +183,7 @@ defaults write com.apple.systemuiserver menuExtras -array-add "/System/Library/C
 # Siri & Spotlight (System Preferences → Siri & Spotlight)
 #######################################################################
 
-echo "Setting up Siri & Spotlight settings..."
+echo "[Setting up] Siri & Spotlight settings..."
 
 # Disable Ask Siri
 defaults write com.apple.Siri StatusMenuVisible -bool false
@@ -225,7 +225,7 @@ sudo mdutil -E / > /dev/null
 # Privacy & Security (System Preferences → Privacy & Security)
 #######################################################################
 
-echo "Setting up Privacy & Security settings..."
+echo "[Setting up] Privacy & Security settings..."
 
 # Allow applications to be downloaded from the App Store and identified developers
 sudo spctl --master-enable
@@ -251,7 +251,7 @@ sudo pmset -a displaysleep 10
 # Desktop & Dock (System Preferences → Desktop & Dock)
 #######################################################################
 
-echo "Setting up Desktop & Dock..."
+echo "[Setting up] Desktop & Dock..."
 
 # Change the position of the Dock to the bottom of the screen
 defaults write com.apple.dock orientation -string bottom
@@ -291,7 +291,7 @@ defaults write com.apple.dock tilesize -int 44
 # Displays
 #######################################################################
 
-echo "Setting up Displays settings..."
+echo "[Setting up] Displays settings..."
 
 # Enable HiDPI display modes
 sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
@@ -304,7 +304,7 @@ defaults write NSGlobalDomain AppleFontSmoothing -int 1
 # Energy Saver (System Preferences → Energy Saver)
 #######################################################################
 
-echo "Setting up Energy Saver settings..."
+echo "[Setting up] Energy Saver settings..."
 
 # Check if the computer is a laptop
 if [[ $(system_profiler SPHardwareDataType | awk '/Model Name/ {print $3}') == 'MacBook' ]]; then
@@ -352,7 +352,7 @@ launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/nul
 # Mouse (System Preferences → Mouse)
 #######################################################################
 
-echo "Setting up Mouse settings..."
+echo "[Setting up] Mouse settings..."
 
 # Enable the secondary (right) click on a Magic Mouse (System Preferences → Mouse)
 defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseButtonMode TwoButton
@@ -380,7 +380,7 @@ defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 # Safari & WebKit  
 #######################################################################
 
-echo "Setting up Safari & WebKit settings..."
+echo "[Setting up] Safari & WebKit settings..."
 
 # Privacy: don’t send search queries to Apple
 defaults write com.apple.Safari UniversalSearchEnabled -bool false
@@ -409,7 +409,7 @@ defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 # Others
 #######################################################################
 
-echo "Setting up other essentials settings..."
+echo "[Setting up] other essentials settings..."
 
 # File System Access
 sudo defaults write com.apple.AppleFileServer guestAccess -bool false
@@ -452,4 +452,5 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo Hos
 # Done
 
 # Display information about the need to restart the machine
-echo "Setting is complete, but some of these changes require a restart to take effect."
+echo #empty line ;)
+echo "DONE! Note that some of these changes require a restart to take effect."
