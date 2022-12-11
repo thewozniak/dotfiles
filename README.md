@@ -24,5 +24,5 @@ Run this:
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/thewozniak/dotfiles/main/remote.sh)"
 ```
 
-This will download and run the appropriate files into in `.dotfiles` to your $HOME directory.
+This will download and run the appropriate files in `.dotfiles` to your $HOME directory.
 After the process is done, use the command: `rm -f remote.sh` to clean up.
