@@ -28,7 +28,7 @@ database=()
 if xcode-select -p -q > /dev/null; then
   # Xcode is already installed
   # No action needed
-  echo -e "\nXcode is already installed. Skipping..."
+  echo "Xcode is already installed. Skipping..."
 else
   # Xcode is not installed
   # Install Xcode command-line tools
@@ -45,7 +45,7 @@ if test ! $(which brew); then
 else
   brew update
   brew_version=$(brew --version)
-  echo -e "\nThe currently installed version of Homebrew is $brew_version"  
+  echo "The currently installed version of Homebrew is $brew_version"  
 fi
 
 # Install nginx using Homebrew
@@ -68,7 +68,7 @@ elif [ "$machine" = "arm64" ]; then
 else
   # The machine hardware is unknown
   # Print an error message and exit the script
-  echo -e "\nError: Unknown machine hardware."
+  echo "Error: Unknown machine hardware."
   exit 1
 fi
 
@@ -159,7 +159,7 @@ else
 
     # The php.ini file does not exist
     # Display an error message
-    echo -e "\nError: The file $brew_path/etc/php/$php_version/php.ini does not exist."
+    echo "Error: The file $brew_path/etc/php/$php_version/php.ini does not exist."
 
     # Create php.ini file
     touch $brew_path/etc/php/$php_version/php.ini
@@ -193,7 +193,7 @@ do
 
     # If the package is not present, display an error message
     if [ $? -ne 0 ]; then
-      echo -e "\nError: Package $package is not present in the Homebrew repository."
+      echo "Error: Package $package is not present in the Homebrew repository."
     else
       # The package is present in the repository
       # Install the package using Homebrew
@@ -211,7 +211,7 @@ done
 # Download the .zshrc file to your home directory
 curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/.zshrc -o ~/.zshrc
 
-echo -e "\nThe following packages and libraries have been installed:"
+echo "The following packages and libraries have been installed:"
 for item in "${database[@]}"
 do
 echo -e "- $item"
