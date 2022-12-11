@@ -521,7 +521,7 @@ sudo defaults write SystemConfiguration/com.apple.smb.server AllowGuestAccess -b
 
 # Save screenshots to the $HOME/ScreenShots
 mkdir $HOME/ScreenShots
-defaults write com.apple.screencapture location -string "${HOME}/ScreenShots"
+defaults write com.apple.screencapture location -string "${HOME}/Screenshots"
 
 # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
 defaults write com.apple.screencapture type -string "png"
@@ -563,12 +563,4 @@ do killall "${app}" > /dev/null 2>&1 done
 # Display information about the need to restart the machine
 echo "DONE! Note that some of these changes require a restart to take effect."
 
-# Ask the user if they want to restart their Mac
-read -p "Do you want to restart your Mac now (y/n)? " answer
-
-# If the user answers yes, force a restart within 10 seconds
-if [ "$answer" == "y" ]; then
-  echo "The computer will reboot automatically within 10 seconds..."
-  sleep 10
-  sudo shutdown -h now
-fi
+exit 0
