@@ -30,9 +30,8 @@ esac
 # Use the appropriate dotfiles for the environment
 case "$WHAT_ENV" in
   "IntelMac"|"AppleSilicon")
-
+    echo # empty line
     echo -e "Setting up your Mac...\r\n"
-
     # Removes .zshrc from $HOME (if it exists)
     rm -rf $HOME/.zshrc
     # Make directory /.dotfiles
@@ -50,9 +49,8 @@ case "$WHAT_ENV" in
     ${HOME}/.dotfiles/install.sh    
     # Delete the /.dotfiles directory and all of its contents
     rm -r ${HOME}/.dotfiles
-
+    echo # empty line
     echo "Done. You're ready to fly! ;)"
-
     ;;
   "Linux")
     # dotfiles for Linux Ubuntu
