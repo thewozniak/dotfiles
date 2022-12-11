@@ -449,14 +449,7 @@ defaults write NSGlobalDomain NSUseAnimatedFocusRing -bool false
 # Reveal IP address, hostname, OS version, etc. when clicking the clock in the login window
 sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
 
-#######################################################################
-# Kill affected applications 
-#######################################################################
-
-for app in "Activity Monitor" "cfprefsd" "Dock" "Finder" "Mail" "Messages" "Safari" "SystemUIServer" "Terminal";
-do killall "${app}" > /dev/null 2>&1 done
+# Done
 
 # Display information about the need to restart the machine
-echo "DONE! Note that some of these changes require a restart to take effect."
-
-exit;
+echo "Setting is complete, but some of these changes require a restart to take effect."
