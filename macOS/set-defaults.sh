@@ -42,62 +42,16 @@ fi
 # Regional Settsings & Language (System Preferences → General)
 #######################################################################
 
-# Delete all languages from the list of available languages
-sudo languagesetup -list | cut -d " " -f 2 | xargs -n 1 sudo languagesetup -remove
-
-# Add English (US) and Polish to the list of available languages
-sudo languagesetup -langspec en_US
-sudo languagesetup -langspec pl
-
-# Set English (US) as the primary language
-sudo languagesetup -lang en_US
-
-# Ask the user to choose a currency
-echo "Choose your currency (USD, EUR, CHF, GBP, CNY, JPY, PLN, CZK, AUD, HKD, THB, SGD, MXN, BRL, ARS, PEN, SEK, NOK, FIM): "
-read currency
-
-# Set the chosen currency in the system settings
-defaults write NSGlobalDomain AppleLocale -string "en_PL@currency=$currency"
-
-# Prompt the user for their time zone
-echo "Please enter your time zone (format: Continent/City - e.g. America/New_York or Europe/Warsaw): "
-read timezone
-
-# Set the time zone using the `systemsetup` command
-sudo systemsetup -settimezone $timezone
-
-# Set the system clock to use a network time server to time.apple.com
-sudo systemsetup -setusingnetworktime on 
-sudo systemsetup -setnetworktimeserver time.apple.com 
-
-# Set the calendar to Georgian
-defaults write NSGlobalDomain AppleFirstWeekday -dict gregorian 2
-
-# Set the temperature to Celsius
-defaults write NSGlobalDomain AppleTemperatureUnit -string "Celsius"
-
-# Set the measurement system to Metric
-defaults write NSGlobalDomain AppleMetricUnits -bool true
-
-# Set the date format to dd/mm/yyyy
-defaults write NSGlobalDomain AppleICUDateFormatStrings -dict 1 "d/M/yyyy"
-
-# Set the list sort order to Universal
-defaults write NSGlobalDomain AppleICUForce12HourTime -bool false
-
 # Show the clock in the menu bar with seconds
 defaults write com.apple.menuextra.clock IsAnalog -bool false
 defaults write com.apple.menuextra.clock DateFormat -string "HH:mm:ss"
-#defaults write com.apple.menuextra.clock ShowSeconds -bool true
+defaults write com.apple.menuextra.clock ShowSeconds -bool true
 
 # Flash the date separators
 defaults write com.apple.menuextra.clock FlashDateSeparators -bool true
 
 # Show 24-hour time instead of 12-hour
 defaults write com.apple.menuextra.clock "24HourTime" -bool true
-
-# Enable live text
-defaults write com.apple.universalaccess closeViewLiveText -bool true
 
 # Do not show language menu in the top right corner of the boot screen
 sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool false
@@ -133,9 +87,6 @@ defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool false
 
 # Prevent Time Machine from prompting to use new hard drives as a backup volume
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
-
-# Disable local Time Machine backups
-hash tmutil &> /dev/null && sudo tmutil disablelocal
 
 #######################################################################
 # Finder and Appearance (System Preferences → Appearance)
@@ -190,21 +141,12 @@ defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 # Remove duplicates in the "Open With" menu
 /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
 
-# Enable snap-to-grid for icons on the desktop and in other icon views
+# Enable snap-to-grid for icons on the desktop and arranbe by kind in other icon views
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
-
-# Enable sort icons on the desktop and and in other icon views by kind
-/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:sortBy name" ~/Library/Preferences/com.apple.finder.plistt
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:sortBy name" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:sortBy name" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy kind" ~/Library/Preferences/com.apple.finder.plist
 
 # Show the ~/Library folder
 chflags nohidden ~/Library
-
-# Show the Volumes folder
-chflags nohidden /Volumes/
 
 # Expand the following File Info panes:
 # “General”, “Open with”, and “Sharing & Permissions”
@@ -224,16 +166,6 @@ defaults write com.apple.systemuiserver menuExtras -array-add "/System/Library/C
 # Show the Bluetooth icon in the Menu Bar
 defaults write com.apple.systemuiserver menuExtras -array-add "/System/Library/CoreServices/Menu Extras/Bluetooth.menu"
 
-# Hide the AirDrop icon in the Menu Bar
-defaults write com.apple.systemuiserver menuExtras -array-remove "/System/Library/CoreServices/Menu Extras/AirDrop.menu"
-
-# Hide the Siri icon in the Menu Bar
-defaults write com.apple.systemuiserver menuExtras -array-remove "/System/Library/CoreServices/Menu Extras/Siri.menu"
-
-# Hide the Time Machine icon in the Menu Bar
-defaults write com.apple.systemuiserver menuExtras -array-remove "/System/Library/CoreServices/Menu Extras/TimeMachine.menu"
-
-
 #######################################################################
 # Siri & Spotlight (System Preferences → Siri & Spotlight)
 #######################################################################
@@ -241,36 +173,29 @@ defaults write com.apple.systemuiserver menuExtras -array-remove "/System/Librar
 # Disable Ask Siri
 defaults write com.apple.Siri StatusMenuVisible -bool false
 
-# Enable indexing by spotlight for the main volume
-#mdutil -i on /
-
-# Disable Spotlight indexing for any volume
-sudo mdutil -i off /Volumes/*
-
 # Enable Applications, System Preferences, Directories, Developer, Documents, and Fonts search results in Spotlight
-defaults write com.apple.spotlight orderedItems -array \
-  '{"enabled" = 1;"name" = "APPLICATIONS";}', \
-  '{"enabled" = 1;"name" = "SYSTEM_PREFS";}', \
-  '{"enabled" = 1;"name" = "DIRECTORIES";}', \
-  '{"enabled" = 1;"name" = "DOCUMENTS";}', \
-  '{"enabled" = 1;"name" = "FONTS";}', \
-  '{"enabled" = 0;"name" = "PDF";}', \
-  '{"enabled" = 0;"name" = "MESSAGES";}', \
-  '{"enabled" = 0;"name" = "CONTACT";}', \
-  '{"enabled" = 0;"name" = "EVENT_TODO";}', \
-  '{"enabled" = 0;"name" = "IMAGES";}', \
-  '{"enabled" = 0;"name" = "BOOKMARKS";}', \
-  '{"enabled" = 0;"name" = "MUSIC";}', \
-  '{"enabled" = 0;"name" = "MOVIES";}', \
-  '{"enabled" = 0;"name" = "PRESENTATIONS";}', \
-  '{"enabled" = 0;"name" = "SPREADSHEETS";}', \
-  '{"enabled" = 0;"name" = "SOURCE";}', \
-  '{"enabled" = 0;"name" = "MENU_DEFINITION";}', \
-  '{"enabled" = 0;"name" = "MENU_OTHER";}', \
-  '{"enabled" = 0;"name" = "MENU_CONVERSION";}', \
-  '{"enabled" = 0;"name" = "MENU_EXPRESSION";}', \
-  '{"enabled" = 0;"name" = "MENU_WEBSEARCH";}', \
-  '{"enabled" = 0;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}'
+defaults write com.apple.spotlight orderedItems -array '{"enabled" = 1;"name" = "APPLICATIONS";}'
+defaults write com.apple.spotlight orderedItems -array '{"enabled" = 1;"name" = "SYSTEM_PREFS";}'
+defaults write com.apple.spotlight orderedItems -array '{"enabled" = 1;"name" = "DIRECTORIES";}'
+defaults write com.apple.spotlight orderedItems -array '{"enabled" = 1;"name" = "DOCUMENTS";}'
+defaults write com.apple.spotlight orderedItems -array '{"enabled" = 1;"name" = "FONTS";}'
+defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "PDF";}'
+defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "MESSAGES";}'
+defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "CONTACT";}'
+defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "EVENT_TODO";}'
+defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "IMAGES";}'
+defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "BOOKMARKS";}'
+defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "MUSIC";}'
+defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "MOVIES";}'
+defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "PRESENTATIONS";}'
+defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "SPREADSHEETS";}'
+defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "SOURCE";}'
+defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "MENU_DEFINITION";}'
+defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "MENU_OTHER";}'
+defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "MENU_CONVERSION";}'
+defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "MENU_EXPRESSION";}'
+defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "MENU_WEBSEARCH";}'
+defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}'
 
 # Load new settings before rebuilding the index
 killall mds > /dev/null 2>&1
@@ -285,56 +210,11 @@ sudo mdutil -E / > /dev/null
 # Privacy & Security (System Preferences → Privacy & Security)
 #######################################################################
 
-# Show location icon when System Services request your location
-defaults write /Library/Preferences/com.apple.locationmenu ShowStatusBar -bool true
-
-# Allow applications and services to determine your location
-sudo /usr/sbin/systemsetup -setlocation on
-
-# Allow Calendar.app to use location services
-sudo defaults write /Library/Preferences/com.apple.security.location.services.Calendar.plist ServicesEnabled -bool true
-
-# Allow Home.app to use location services
-sudo defaults write /Library/Preferences/com.apple.security.location.services.Home.plist ServicesEnabled -bool true
-
-# Allow location-based alerts
-sudo defaults write /Library/Preferences/com.apple.locationmenu ShowSystemServices -bool true
-
-# Allow location-based suggestions
-sudo defaults write /Library/Preferences/com.apple.Spotlight locationResults -bool true
-
-# Allow time zone and system customization
-sudo defaults write /Library/Preferences/com.apple.timezone.auto Active -bool true
-
-# Allow significant locations
-sudo defaults write /Library/Preferences/com.apple.locationmenu ShowSignificantLocations -bool true
-
-# Allow Find My Mac
-sudo defaults write /Library/Preferences/com.apple.locationmenu EnableFTM -bool true
-
-# Allow HomeKit
-sudo defaults write /Library/Preferences/com.apple.locationmenu AllowHomeKitLocationServices -bool true
-
-# Allow networking and wireless
-sudo defaults write /Library/Preferences/com.apple.locationmenu AllowNetworkingLocationServices -bool true
-
-# Allow Mac analytics
-sudo defaults write /Library/Preferences/com.apple.locationmenu AllowAnalyticsLocationServices -bool true
-
-# Turn off personalized ads
-defaults write /Library/Preferences/com.apple.adlibrary.plist ADAppBlacklist -bool true
-
 # Allow applications to be downloaded from the App Store and identified developers
 sudo spctl --master-enable
 
 # Prevent Photos from opening automatically when devices are plugged in
 defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
-
-# Disable sharing of Mac analytics and improvements with Apple
-defaults write /Library/Preferences/com.apple.CrashReporter DialogType -string none
-
-# Disable the improvement of Siri and dictation
-defaults write /Library/Preferences/com.apple.assistant.support 'Assistant Enabled' -bool false
 
 #######################################################################
 # Desktop & Dock (System Preferences → Desktop & Dock)
@@ -409,14 +289,8 @@ fi
 # Enable waking up from network access
 sudo pmset -a womp 1
 
-# Restart automatically if the computer freezes
-sudo systemsetup -setrestartfreeze off
-
 # Restart automatically on power loss
 sudo pmset -a autorestart 1
-
-# Never go into computer sleep mode
-sudo systemsetup -setcomputersleep Off > /dev/null
 
 # Hibernation mode
 # 0: Disable hibernation (speeds up entering sleep mode)
@@ -427,12 +301,6 @@ sudo pmset -a hibernatemode 0
 # Disable the sudden motion sensor as it’s not useful for SSDs
 sudo pmset -a sms 0
 
-# Remove the sleep image file to save disk space
-sudo rm /private/var/vm/sleepimage
-# Create a zero-byte file instead…
-sudo touch /private/var/vm/sleepimage
-# …and make sure it can’t be rewritten
-sudo chflags uchg /private/var/vm/sleepimage
 
 #######################################################################
 # Lock Screen (System Preferences → Lock Screen)
@@ -562,5 +430,3 @@ do killall "${app}" > /dev/null 2>&1 done
 
 # Display information about the need to restart the machine
 echo "DONE! Note that some of these changes require a restart to take effect."
-
-exit 0
