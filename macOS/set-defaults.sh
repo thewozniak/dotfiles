@@ -10,7 +10,24 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Setting up computer name
-computer_name=$(system_profiler SPHardwareDataType | awk '/Model Name/ {print "Mac " substr($4, match($4, //))}')
+computer_name=$(system_profiler SPHardwareDataType | awk '/Model Name/ {print $3$4}')
+
+# Check if the computer name is Macmini, MacBookPro, MacStudio or MacPro
+case "$computer_name" in
+  "Macmini")
+    computer_name="Mac mini"
+    ;;
+  "MacBookAir"|"MacBookPro")
+    computer_name="MacBook"
+    ;;
+  "MacStudio")
+    computer_name="Mac Studio"
+    ;;
+  "MacPro")
+    computer_name="Mac Pro"
+    ;;             
+esac
+
 echo -e "\nSetting up computer name to: $computer_name"
 sudo scutil --set ComputerName $computer_name
 
@@ -291,7 +308,7 @@ defaults write NSGlobalDomain AppleFontSmoothing -int 1
 echo -e "\nSetting up Energy Saver settings..."
 
 # Check if the computer is a laptop
-if [[ $(system_profiler SPHardwareDataType | awk '/Model Name/ {print $3$4}') == 'MacBook' ]]; then
+if [[ $(system_profiler SPHardwareDataType | awk '/Model Name/ {print $3}') == 'MacBook' ]]; then
 
     # Menu bar: show battery percentage
     defaults write com.apple.menuextra.battery ShowPercent YES
