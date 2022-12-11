@@ -9,38 +9,27 @@ sudo -v
 # Keep-alive: update existing `sudo` time stamp until `set-default.sh` has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-# Ask the user for the computer name
-echo "Enter the computer name (e.g Mac mini): "
-read computer_name
-
-# Set the computer name
+# Setting up computer name
+computer_name=$(system_profiler SPHardwareDataType | awk '/Model Name/ {print "Mac " substr($4, match($4, //))}')
+echo -e "\nSetting up computer name to: $computer_name"
 sudo scutil --set ComputerName $computer_name
 
 # Replace any spaces in the computer name with hyphens
 local_host_name=${computer_name// /-}
 
 # Set the local host name
+echo -e "\nSetting up localhost name to: $local_host_name"
 sudo scutil --set LocalHostName $local_host_name
 
 # Ask the user to choose the appearance
-echo "Choose the appearance (Light, Dark, or Auto): "
-read appearance
-
-# Set the appearance according to the user's choice
-if [[ $appearance =~ "light" ]]; then
-  # Set the appearance to Light
-  defaults write -g "AppleInterfaceStyle" "Light"
-elif [[ $appearance =~ "dark" ]]; then
-  # Set the appearance to Dark
-  defaults write -g "AppleInterfaceStyle" "Dark"
-else
-  # Set the appearance to Auto
-  defaults write -g "AppleInterfaceStyle" "Auto"
-fi
+echo -e "\nSetting up appearance to: Light "
+defaults write -g "AppleInterfaceStyle" "Light"
 
 #######################################################################
 # Regional Settsings & Language (System Preferences → General)
 #######################################################################
+
+echo -e "\nSetting up clock settings..."
 
 # Show the clock in the menu bar with seconds
 defaults write com.apple.menuextra.clock IsAnalog -bool false
@@ -60,6 +49,8 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bo
 # Software Updates (System Preferences → General → Updates)
 #######################################################################
 
+echo -e "\nSetting up an updates settings..."
+
 # Enable automatic checking for updates
 defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
 
@@ -75,6 +66,8 @@ defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -bool true
 # AirDrop & Handoff (System Preferences → General → AirDrop)
 #######################################################################
 
+echo -e "\nSetting up Handoff & AirDrop settings..."
+
 # Enable Handoff
 defaults write com.apple.coreservices.useractivityd ActivityAdvertisingAllowed -bool true
 
@@ -85,12 +78,16 @@ defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool false
 # Time Machine (System Preferences → General → Time Machine)
 #######################################################################
 
+echo -e "\nSetting up Time Machine settings..."
+
 # Prevent Time Machine from prompting to use new hard drives as a backup volume
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
 #######################################################################
 # Finder and Appearance (System Preferences → Appearance)
 #######################################################################
+
+echo -e "\nSetting up Finder settings..."
 
 # Show hard drives on the desktop
 defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
@@ -170,6 +167,8 @@ defaults write com.apple.systemuiserver menuExtras -array-add "/System/Library/C
 # Siri & Spotlight (System Preferences → Siri & Spotlight)
 #######################################################################
 
+echo -e "\nSetting up Siri & Spotlight settings..."
+
 # Disable Ask Siri
 defaults write com.apple.Siri StatusMenuVisible -bool false
 
@@ -210,6 +209,8 @@ sudo mdutil -E / > /dev/null
 # Privacy & Security (System Preferences → Privacy & Security)
 #######################################################################
 
+echo -e "\nSetting up Privacy & Security settings..."
+
 # Allow applications to be downloaded from the App Store and identified developers
 sudo spctl --master-enable
 
@@ -217,8 +218,24 @@ sudo spctl --master-enable
 defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 
 #######################################################################
+# Lock Screen (System Preferences → Lock Screen)
+#######################################################################
+
+# Require password immediately after sleep or screen saver begins
+defaults write com.apple.screensaver askForPassword -int 1
+defaults write com.apple.screensaver askForPasswordDelay -int 0
+
+# Don't allow to login as a guest
+sudo defaults write /Library/Preferences/com.apple.loginwindow.plist GuestEnabled -bool false
+
+# Sleep the display after 10 minutes
+sudo pmset -a displaysleep 10
+
+#######################################################################
 # Desktop & Dock (System Preferences → Desktop & Dock)
 #######################################################################
+
+echo -e "\nSetting up Desktop & Dock..."
 
 # Change the position of the Dock to the bottom of the screen
 defaults write com.apple.dock orientation -string bottom
@@ -258,6 +275,8 @@ defaults write com.apple.dock tilesize -int 44
 # Displays
 #######################################################################
 
+echo -e "\nSetting up Displays settings..."
+
 # Enable HiDPI display modes
 sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
 
@@ -269,8 +288,10 @@ defaults write NSGlobalDomain AppleFontSmoothing -int 1
 # Energy Saver (System Preferences → Energy Saver)
 #######################################################################
 
+echo -e "\nSetting up Energy Saver settings..."
+
 # Check if the computer is a laptop
-if [[ $(system_profiler SPHardwareDataType | awk '/Model Name/ {print $3}') == 'MacBook' ]]; then
+if [[ $(system_profiler SPHardwareDataType | awk '/Model Name/ {print $3$4}') == 'MacBook' ]]; then
 
     # Menu bar: show battery percentage
     defaults write com.apple.menuextra.battery ShowPercent YES
@@ -301,21 +322,6 @@ sudo pmset -a hibernatemode 0
 # Disable the sudden motion sensor as it’s not useful for SSDs
 sudo pmset -a sms 0
 
-
-#######################################################################
-# Lock Screen (System Preferences → Lock Screen)
-#######################################################################
-
-# Require password immediately after sleep or screen saver begins
-defaults write com.apple.screensaver askForPassword -int 1
-defaults write com.apple.screensaver askForPasswordDelay -int 0
-
-# Don't allow to login as a guest
-sudo defaults write /Library/Preferences/com.apple.loginwindow.plist GuestEnabled -bool false
-
-# Sleep the display after 10 minutes
-sudo pmset -a displaysleep 10
-
 #######################################################################
 # Keyboard (System Preferences → Keyboard)
 #######################################################################
@@ -329,6 +335,8 @@ launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/nul
 #######################################################################
 # Mouse (System Preferences → Mouse)
 #######################################################################
+
+echo -e "\nSetting up Mouse settings..."
 
 # Enable the secondary (right) click on a Magic Mouse (System Preferences → Mouse)
 defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseButtonMode TwoButton
@@ -355,6 +363,8 @@ defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 #######################################################################
 # Safari & WebKit  
 #######################################################################
+
+echo -e "\nSetting up Safari & WebKit settings..."
 
 # Privacy: don’t send search queries to Apple
 defaults write com.apple.Safari UniversalSearchEnabled -bool false
@@ -383,12 +393,14 @@ defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 # Others
 #######################################################################
 
+echo -e "\nSetting up other essentials settings..."
+
 # File System Access
 sudo defaults write com.apple.AppleFileServer guestAccess -bool false
 sudo defaults write SystemConfiguration/com.apple.smb.server AllowGuestAccess -bool false
 
-# Save screenshots to the $HOME/ScreenShots
-mkdir $HOME/ScreenShots
+# Save screenshots to the $HOME/Screenshots
+mkdir $HOME/Screenshots
 defaults write com.apple.screencapture location -string "${HOME}/Screenshots"
 
 # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
