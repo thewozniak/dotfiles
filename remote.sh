@@ -31,7 +31,7 @@ esac
 case "$WHAT_ENV" in
   "IntelMac"|"AppleSilicon")
 
-    echo "Setting up your Mac..."
+    echo -e "Setting up your Mac...\n"
 
     # Removes .zshrc from $HOME (if it exists)
     rm -rf $HOME/.zshrc
