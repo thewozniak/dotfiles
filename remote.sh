@@ -49,7 +49,7 @@ case "$WHAT_ENV" in
     ${HOME}/.dotfiles/set-defaults.sh
     ${HOME}/.dotfiles/install.sh    
     # Delete the /.dotfiles directory and all of its contents
-    #rm -r ${HOME}/.dotfiles
+    rm -r ${HOME}/.dotfiles
 
     echo "Done. You're ready to fly! ;)"
 
