@@ -57,6 +57,7 @@ case "$WHAT_ENV" in
     # will be added in the future
     ;;
   *)
+    echo # empty line
     echo "Unknown environment... Aborting.."
     ;;
 esac
