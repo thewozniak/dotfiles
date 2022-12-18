@@ -168,7 +168,6 @@ defaults write com.apple.finder FXInfoPanesExpanded -dict \
 	OpenWith -bool true \
 	Privileges -bool true
 
-
 #######################################################################
 # Control Center Appearance (System Preferences → Control Center)
 #######################################################################
@@ -368,6 +367,9 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseTwoFingerHor
 
 # Enable double tap to show Mission Control for a Magic Mouse
 defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseTwoFingerDoubleTapGesture -int 2
+
+# Set mouse tracking speed
+defaults write -g com.apple.mouse.scaling 1.25
 
 #######################################################################
 # Printers
