@@ -34,6 +34,7 @@ fi
 # Install Homebrew if it is not already installed
 if test ! $(which brew); then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  brew update
   # Add installed package to the array
   database+=("Homebrew")
 else
@@ -66,27 +67,18 @@ else
   exit 1
 fi
 
-# Edit the Nginx configuration file
-sed -i '' 's/^\( *\)listen.*;/\1listen 80, 443, 8000-8999;/' $conf_file
 # Edit the Nginx configuration file and update the "root" directive
-sed -i '' 's#^\( *\)root /.*;#\1root $HOME/Sites;#' $conf_file
-# Edit the Nginx configuration file and update the "index" directive
-sed -i '' 's#^\( *\)index /.*;#\1index index.html index.php;#' $conf_file
-sed -i '' '/^ *server *{/a \ \ \ \ index index.html index.php;' $conf_file
-# Edit the Nginx configuration file to point to PHP-FPM on port 9000.
-sed -i '' '/^http {/a \
-    location ~ \.php$ {
-        fastcgi_pass   127.0.0.1:9000;
-        fastcgi_index  index.php;
-        fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
-        include        fastcgi_params;
-    }
-' $conf_file
+mkdir ${HOME}/Sites
+sed -i '' 's#^\( *\)root /.*;#\1root ${HOME}/Sites;#' $conf_file
 
 # Create the index.html file in the user's home directory
-echo -e "Welcome to nginx!\r\n If you see this page, the nginx web server is successfully installed and working. Further configuration may be needed.\r\nPath to the home page web files is: $HOME\r\nYou can view the PHP configuration <a href="php_info.php">here</a>" > $HOME/index.html
+echo "<strong>Welcome to nginx!</strong><br><br>
+If you see this page, the nginx web server is successfully installed and working.<br>
+Further configuration may be needed.<br><br>
+Path to the home page web files is: ${HOME}
+You can view the PHP configuration <a href="php_info.php">here</a>" > ${HOME}/Sites/index.html
 # Create the PHP Info file in the user's home directory
-echo "<?php phpinfo(); ?>" > $HOME/php_info.php
+echo "<?php phpinfo(); ?>" > ${HOME}/Sites/php_info.php
 
 # Add installed package to the array
 database+=("Nginx Web Server")
@@ -102,23 +94,6 @@ brew list node || brew install node
 # Add installed package to the array
 database+=("NodeJS (npm)")
 
-# Install the pecl command-line tool using Homebrew
-brew list pecl || brew install pecl
-# Add installed package to the array
-database+=("Pecl command-line tool")
-
-# Install MongoDB using the mongodb/brew tap
-brew tap mongodb/brew
-brew list mongodb-community || brew install mongodb-community
-# Add installed package to the array
-database+=("MongoDB")
-
-# Install NoSQLBooster for MongoDB using Homebrew Cask
-brew list --cask nosqlbooster-for-mongodb || brew install --cask nosqlbooster-for-mongodb
-
-# Install the MongoDB PHP extension using pecl
-pecl install mongodb
-
 # Determine the location of the php.ini file
 php_ini=$(php -r "phpinfo();" | grep php.ini | cut -d' ' -f5)
 
@@ -129,10 +104,17 @@ php_ini=$(php -r "phpinfo();" | grep php.ini | cut -d' ' -f5)
 if test -f $php_ini; then
 
   # The php.ini file exists in the default location
-  # Edit the file and add the line "extension=mongodb.so" at the end of the file
-  echo "extension=mongodb.so" >> $php_ini
-  # Add installed package to the array
-  database+=("MongoDB PHP Driver (extension)")
+  # Check if the mongodb extension is already added to the php.ini file
+  if ! grep -q "mongodb" $php_ini; then
+    # Add the mongodb extension to the end of the php.ini file
+    echo "
+    [mongodb]
+    extension=\"mongodb.so\"" >> $php_ini
+    database+=("MongoDB PHP Driver (extension)")
+  else
+    # The mongodb extension is already added to the php.ini file
+    echo "MongoDB extension is already added to PHP configuration!"
+  fi
 
 else
 
@@ -145,7 +127,9 @@ else
     cp /etc/php.ini.default $php_ini
 
     # Edit the file and add the line "extension=mongodb.so" at the end of the file
-    echo "extension=mongodb.so" >> $php_ini
+    echo "
+    [mongodb]
+    extension=\"mongodb.so\"" >> $php_ini
     # Add installed package to the array
     database+=("MongoDB PHP Driver (extension)")
 
@@ -159,7 +143,9 @@ else
     touch $brew_path/etc/php/$php_version/php.ini
 
     # Edit the file and add the line "extension=mongodb.so"
-    #echo "extension=mongodb.so" >> $php_ini
+    #echo "
+    #[mongodb]
+    #extension=\"mongodb.so\"" >> $php_ini
     # Add installed package to the array
     #database+=("MongoDB PHP Driver (extension)")
 
@@ -189,11 +175,21 @@ do
     if [ $? -ne 0 ]; then
       echo "Error: Package $package is not present in the Homebrew repository."
     else
+      if [ $package == "mongodb" ]; then
+        # Install MongoDB using the mongodb/brew tap
+        brew tap mongodb/brew
+        brew list mongodb-community || brew install mongodb-community
+        # Add installed package to the array
+        database+=("MongoDB")
+        # Install NoSQLBooster for MongoDB using Homebrew Cask
+        brew list --cask nosqlbooster-for-mongodb || brew install --cask nosqlbooster-for-mongodb
+      else
       # The package is present in the repository
       # Install the package using Homebrew
       brew list $package || brew install $package
       # Add installed package to the array
-      database+=("$package")
+      #database+=("$package")
+      fi
     fi
   else
     # The user does not want to install additional packages
