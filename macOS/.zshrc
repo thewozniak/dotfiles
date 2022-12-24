@@ -139,9 +139,9 @@ sudo -v
 
     if [ "$1" = "mongo" ] && [ -z "$2" ] || [ "$1" = "mysql" ] && [ -z "$2" ]  || [ "$1" = "postgresql" ] && [ -z "$2" ] || [ "$1" = "redis" ] && [ -z "$2" ]; then
       if [ "$1" = "mongo" ]; then
-        check_exists=$(brew list | grep 'mongodb-community') service_name="MongoDB(Community)" service="mongo"
+        check_exists=$(brew list | grep "mongodb-community") service_name="MongoDB(Community)" service="mongo"
       else
-        check_exists=$(brew list | grep '$1')
+        check_exists=$(brew list | grep "$1")
         if [ "$1" = "mysql" ]; then service_name="MySQL" service="mysql" fi
         if [ "$1" = "postgresql" ]; then service_name="PostgreSQL" service="postgresql" fi
         if [ "$1" = "redis" ]; then service_name="Redis" service="redis" fi
@@ -195,7 +195,7 @@ sudo -v
       case "$1" in
         start)
           # Start specified service
-          check_service=$(ps aux | grep -o '$2' | wc -l)
+          check_service=$(ps aux | grep -o "$2" | wc -l)
           if [ "$check_service" -le 1 ]; then
           brew services start $2
           else
@@ -207,20 +207,20 @@ sudo -v
           ;;
         stop)
           # Stop specified service
-          check_service=$(ps aux | grep -o '$2' | wc -l)
-          if [ "$check_service" -gt 0 ]; then
+          check_service=$(ps aux | grep -o "$2" | wc -l)
+          if [ "$check_service" -gt 1 ]; then
           brew services stop $2                   
           fi  
           ;;
         restart)
           # Restart specified service
-          check_service=$(ps aux | grep -o '$2' | wc -l)
-          if [ "$check_service" -gt 0 ]; then
+          check_service=$(ps aux | grep -o "$2" | wc -l)
+          if [ "$check_service" -gt 1 ]; then
           brew services restart $2                   
           fi  
           ;;
       esac
     fi
-    
+
   fi
 }
