@@ -20,7 +20,7 @@ redischeck=$(ps aux | grep -o 'redis' | wc -l)
         if [ -z "$2" ]; then
             # No service specified, start all services
             if [ "$dnsmasqcheck" -le 1 ]; then
-              brew services start dnsmasq
+              sudo brew services start dnsmasq
             fi             
             if [ "$phpcheck" -le 1 ]; then
               brew services start php
@@ -55,7 +55,7 @@ redischeck=$(ps aux | grep -o 'redis' | wc -l)
         if [ -z "$2" ]; then
             # No service specified, restart all services
             if [ "$dnsmasqcheck" -gt 1 ]; then
-              brew services restart dnsmasq
+              sudo brew services restart dnsmasq
             fi              
             if [ "$phpcheck" -gt 1 ]; then
               brew services restart php
