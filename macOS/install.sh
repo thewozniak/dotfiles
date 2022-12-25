@@ -29,7 +29,6 @@ tput sgr0
 tput setaf 4 
 tput bold
 for (( i=21; i<43; i++ )); do
-
   echo -n "${text:$i:1}"
   sleep 0.05
 done
