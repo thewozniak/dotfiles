@@ -255,7 +255,48 @@ do
 echo -e "- $item"
 done
 
-echo -e "\nBy default \033[1mPHP\033[0m and \033[1mNginx\033[0m is running.\nType in: \033[4mdev stop\033[0m to halt services"
+echo -e "\n\033[32mDONE!\033[0m \033[1mDevelopment Enviroment\033[0m is ready to code!"
+echo -e "\n\033[1mPHP\033[0m is running on port: \033[4m9000\033[0m (user: ${USER})"
+echo -e "\033[1mNginx\033[0m is running on port: \033[4m80\033[0m (user: root)"
+echo -e "\nYour dev-env address is: \033[1m\033[4m\033[3mhttp://dev.mac\033[0m\033[0m\033[0m and \033[1m\033[4m\033[3mhttp://localhost\033[0m\033[0m\033[0m"
+echo -e "Sites default files path is: \033[4m\033[3m${HOME}/Sites\033[0m\033[0m"
+echo -e "\nPHP configuration file path is: \033[4m\033[3m$php_ini\033[0m\033[0m"
+echo -e "Nginx configuration file path is: \033[4m\033[3m$nginx_file\033[0m\033[0m"
+echo -e "\nBy default \033[1mPHP\033[0m and \033[1mNginx\033[0m are up and \033[1m\033[32mrunning.\033[01m\033[0m\nType in: \033[4mdev stop\033[0m to halt services"
+echo -e "\nFor mor information check \033[1mdev-env.md\033[0m file in your homedir: \033[4m\033[3m~/dev-env.md\033[0m\\033[0m\n"
+
+echo "
+# ~/dotfiles macOS develompent enviroment
+# GitHub: https://github.com/thewozniak
+# WebSite: https://woz.ooo
+
+PHP is running on port: 9000 (user: ${USER})
+Nginx is running on port: 80 (user: root)
+
+Your dev-env address is: http://dev.mac and http://localhost
+Sites default files path is: ${HOME}/Sites
+
+PHP configuration file path is: $php_ini
+Nginx configuration file path is: $nginx_file
+
+# Basics dev-env commands are:
+dev start - to start dev-env
+dev stop - to stop dev-env
+dev restart - to restart dev-env
+dev status - to check status of services
+
+# Commands for database services:
+dev db - to check if aby database services are running or not
+dev mongo - to get information how to install the latest MongoDB-Community
+dev redis start|stop|restart - to start|stop|restart Redis service (must be installed first in the system)
+dev mongo start|stop|restart - to start|stop|restart MongoDB-Community service (must be installed first in the system)
+dev mysql start|stop|restart - to start|stop|restart MySQL service (must be installed first in the system)
+dev postgresql start|stop|restart - to start|stop|restart PostgreSQL service (must be installed first in the system)
+
+# Additional commands available:
+getpasswd - generates a random password with a length of 24 characters
+killport - to kill processes running on a specific port (e.g.: killport 8080)
+" > ${HOME}/dev-env.md
 
 else
   # The user does not want to prepare the development environment
