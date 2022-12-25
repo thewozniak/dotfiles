@@ -32,7 +32,9 @@ Don't worry! Once the process is complete, all files will be cleaned up.
 
 After the installation is complete, <strong>PHP</strong> and <strong>Nginx</strong> are running because they were started during the installation process.
 
-To display the status of running services, type: `dev status`. If you nedd to stop dev-env, type as following: `dev stop`.
+To display the status of running services, type: `dev status`.
+
+If you nedd to stop dev-env, type as following: `dev stop`.
 <br /><br />
 
 ## Usage
