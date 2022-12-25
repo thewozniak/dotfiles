@@ -20,7 +20,7 @@ for (( i=0; i<15; i++ )); do
   sleep 0.05
 done
 tput sgr0
-tput setaf 4 
+tput setaf 6 
 tput bold
 for (( i=15; i<18; i++ )); do
   echo -n "${text:$i:1}"
