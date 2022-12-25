@@ -2,7 +2,7 @@
 
 # Ask the user if they want to prepare the development environment
 echo # just an empty line ;)
-read -p -e "\033[1mDo you want to prepare the development environment?\033[om [y/n] " answer
+read -p -e "\033[1mDo you want to prepare the development environment?\033[0m [y/n] " answer
 
 if [ "$answer" != "${answer#[Yy]}" ]; then
 
