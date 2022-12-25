@@ -4,6 +4,31 @@ alias reload='. ~/.zshrc'
 # Generate a random password of 24 characters
 alias getpasswd='echo `env LC_CTYPE=C tr -dc "A-Za-z0-9.$&^@!;" < /dev/urandom | head -c 24`'
 
+function killport() {
+  if [ -z "$1" ]; then
+    echo # empty line ;)
+    echo "\033[1m!!!\033[0m Expected parameter (port number)"
+    echo "e.g.: \033[4m\033[3mkillport 80\033[0m\033[0m, \033[4m\033[3mkillport 443\033[0m\033[0m"
+    echo # empty line ;)
+  elif [[ "$1" =~ ^[0-9]{2,5}$ ]]; then
+    # Ask for the administrator password upfront
+    sudo -v
+    if [ "$2" != "silent" ]; then
+    echo # empty line ;)
+    echo "Killing processes running on port \033[1m$1\033[0m ..."
+    fi
+    lsof -i -P | grep -i "80" | awk "{print $2}" | xargs kill
+    if [ "$2" != "silent" ]; then
+    echo # empty line ;)
+    fi
+  else
+    echo # empty line ;)
+    echo "\033[1m[ERROR]\033[0m Expected parameter (port number)"
+    echo "Expected parameter must contain 2 to 5 digits (e.g.: \033[4m\033[3mkillport 443\033[0m\033[0m)"
+    echo # empty line ;)
+  fi
+}
+
 function dev() {
 # Ask for the administrator password upfront
 sudo -v
