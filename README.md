@@ -4,14 +4,17 @@
 
 These are my personal dofilest. If you'd like to learn more about it, check out [GitHub ❤ ~/](http://dotfiles.github.io) page.
 
-In addition to configuring macOS to the default settings I use, the following components and libraries will be installed:
+It helps me and speeds up system configurations, to my preferred settings. In addition to configuring macOS to the defaults I use, you can install the following development environment components and libraries:
 - Xcode command-line tools
 - Homebrew
+- OpenSSL
+- Wget
+- PHP (latest)
+- MongoDB PHP Driver
 - Nginx
-- PHP
 - Composer
 - Node
-- Pecl
+
 - MongoDB
 
 During the installation process, there is a possibility to enter additional packages to be installed - only if they are available in homebrew repository.
