@@ -32,7 +32,7 @@ function killport() {
 function dev() {
 # Ask for the administrator password upfront
 sudo -v
-  if [ -z "$1" ]; then
+  if [ -z "$1" ] || [ "$1" = "info" ] ; then
     dev status
     echo "----"
     echo # empty line ;)
