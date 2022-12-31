@@ -103,35 +103,74 @@ database+=("Wget")
 brew list php || brew install php
 database+=("PHP")
 
-# Install Mongo PHP Driver for MongoDB using PECL
-sudo pecl install mongodb
+# Start PHP using Homebrew
+brew services start php
 
-# Download pre-configured php.ini file
-# default path for Intel x86-64 Chipset into php.ini file is: /usr/local/etc/php/8.x/php.ini
-# default path for Intel x86-64 Chipset into php.ini file is: /opt/homebrew/etc/php/8.x/php.ini
+# Install composer using Homebrew
+brew list composer || brew install composer
+# Add installed package to the array
+database+=("Composer")
+
+# Install NodeJS (npm) using Homebrew
+brew list node || brew install node
+# Add installed package to the array
+database+=("NodeJS (npm)")
 
 # Determine the location of the php.ini file
 php_ini=$(php -r "phpinfo();" | grep php.ini | cut -d' ' -f5)
-
 # Output e.g:
 # /usr/local/etc/php/7.4/php.ini
 
 # Check if the php.ini file exists in the default location
 if test -f $php_ini; then
   # The php.ini file exists in the default location
-  mv -f $php_ini $php_ini.bak
-  #curl https://woz.ooo/.dotfiles/php.ini -o $php_ini
-  curl https://gist.githubusercontent.com/thewozniak/b94dec164aba17465fa08ade3f66669e/raw/df20af4fcdd8ed348f42d4c5bef036b6388c5ece/php.ini -o $php_ini
-  database+=("MongoDB PHP Driver (extension)")
 else
   # The php.ini file does not exist in the default location
-  #curl https://woz.ooo/.dotfiles/macOS/php.ini -o $php_ini
-  curl https://gist.githubusercontent.com/thewozniak/b94dec164aba17465fa08ade3f66669e/raw/df20af4fcdd8ed348f42d4c5bef036b6388c5ece/php.ini -o $php_ini
-  database+=("MongoDB PHP Driver (extension)") 
 fi
 
-# Start PHP using Homebrew
-brew services start php
+# Change permissions for directories
+sudo chmod -R 777 /private/tmp/pear/*
+sudo chmod -R 777 /usr/local/share/pear/*
+
+# Install PCRE (Perl Compatible Regular Expression)
+brew install pcre
+
+# Install Mongo PHP Driver for MongoDB using PECL
+sudo pecl install mongodb
+
+if grep -q "^extension=mongodb.so" $php_ini; then
+  sed -i '/^extension=mongodb.so/d' $php_ini
+fi
+if grep -q "\[extensions\]" $php_ini; then
+  if grep -q "mongodb.so" $php_ini; then
+    sed -i '/^extension=mongodb.so/d' $php_ini
+  fi
+else
+  echo "[extensions]" | sudo tee -a $php_ini
+fi
+echo "extension=mongodb.so" | sudo tee -a $php_ini
+database+=("MongoDB PHP Driver (extension)")
+
+# Install pkgconfig using Homebrew
+brew instal pkg-config
+
+# Install image processing tools collection
+brew install GraphicsMagick
+
+# Install imagick for PHP using PECL
+yes '' | sudo pecl install imagick
+
+# Install mailparse (email message manipulation) for PHP using PECL
+sudo pecl install mailparse
+
+# Install msgpack using Homebrew
+brew install msgpack
+
+# Install OAuth using Homebrew
+brew install oauth
+
+# Install Redis using PECL
+yes '' | sudo pecl install redis
 
 # Install nginx using Homebrew
 brew list nginx || brew install nginx
@@ -147,12 +186,7 @@ sudo nginx
 # default path for Apple Silicon M-Series Chipset into nginx.conf file is: /opt/homebrew/etc/nginx/nginx.conf
 
 mv -f $nginx_file $nginx_file.bak
-#curl https://woz.ooo/.dotfiles/macOS/nginx.conf -o $nginx_file
-curl https://gist.githubusercontent.com/thewozniak/7caa4efa909630a0b0365e2138d65c6e/raw/47be855674c2a0f31650f5a855b82aa43ac56c74/nginx.conf -o $nginx_file
-
-# Reload nginx service as a root
-sudo nginx -s reload
-database+=("Nginx Web Server")
+curl https://woz.ooo/dl/dotfiles/macOS/nginx.conf -o $nginx_file
 
 # Make directory for SSL
 # e.g: /usr/local/etc/nginx/ssl/ for Intel x86-64
@@ -162,43 +196,26 @@ mkdir $brew_path/etc/nginx/ssl/
 # Add the line "127.0.0.1 dev.mac" to the end of the /etc/hosts file
 echo "127.0.0.1       dev.mac" | sudo tee -a /etc/hosts
 
-# Install dnsmasq using Homebrew
-#brew list dnsmasq || brew install dnsmasq
-
-# Setup dnsmasq for local dev-env (http://dev.mac)
-# Intel x86-64 - /usr/local/etc/dnsmasq.conf
-# Apple Silicon M-series - /opt/homebrew/etc/dnsmasq.conf
-#echo 'address=/.mac/127.0.0.1' > $brew_path/etc/dnsmasq.conf
-
-# Start dnsmasq using Homebrew
-#sudo brew services start dnsmasq
-
-# Prepare dnsmasq for local dev-env
-#sudo mkdir -v /etc/resolver
-#sudo bash -c 'echo "nameserver 127.0.0.1" > /etc/resolver/mac'
-
-# Reload dnsmasq
-#sudo brew services restart dnsmasq
-
 # Edit the Nginx configuration file and update the "root" directive
 mkdir ${HOME}/Sites
+sudo chmod -R 775 ${HOME}/Sites
+sed -i '' '1 s/^#*user[[:blank:]]\+.*;/user  ${USER} staff;/' $conf_file
 sed -i '' 's#^\( *\)root /.*;#\1root ${HOME}/Sites;#' $conf_file
 
 # Create the index.html file in the user's home directory
-echo "<!DOCTYPE html><html><head><title>Welcome to nginx!</title><style>html { color-scheme: light dark; } body { width: 35em; margin: 0 auto; font-family: Tahoma, Verdana, Arial, sans-serif; } p.dev{ margin-left:18px; }</style></head><body><h1>Welcome to nginx!</h1><p>If you see this page, the nginx web server is successfully installed and working. Further configuration is required.</p><p>For online documentation and support please refer to <a href='http://nginx.org/'>nginx.org</a>.<br/>Commercial support is available at <a href='http://nginx.com/'>nginx.com</a>.</p><p class='dev'>The addresses of the development environment are:<br /><strong><em>http://localhost</strong> and <strong>http://dev.mac</em></strong><br />and both are running on port 80</p><p class='dev'>The directory with the files for the home page is: ${HOME}/Sites<br/>Click <a href='phpinfo.php'>here</a> to view phpinfo() configuration.</p><p><em>Thank you for using nginx</em></p><p><em>&copy; 2022 - <a href='https://woz.ooo'>woz.ooo</a></em></p></body></html>" > ${HOME}/Sites/index.html
+echo "<!DOCTYPE html><html><head><title>Welcome to nginx!</title><style>html { color-scheme: light dark; } body { width: 35em; margin: 0 auto; font-family: Tahoma, Verdana, Arial, sans-serif; } p.dev{ margin-left:18px; }</style></head><body><h1>Welcome to nginx!</h1><p>If you see this page, the nginx web server is successfully installed and working. Further configuration is required.</p><p>For online documentation and support please refer to <a href='http://nginx.org/'>nginx.org</a>.<br/>Commercial support is available at <a href='http://nginx.com/'>nginx.com</a>.</p><p class='dev'>The addresses of the development environment are:<br /><strong><em>http://localhost</strong> and <strong>http://dev.mac</em></strong><br />and both are running on port 80</p><p class='dev'>The directory with the files for the home page is: ${HOME}/Sites<br/>Click <a href='php-info.php'>here</a> to view phpinfo() configuration.</p><p><em>Thank you for using nginx</em></p><p><em>&copy; 2022 - <a href='https://woz.ooo'>woz.ooo</a></em></p></body></html>" > ${HOME}/Sites/index.html
+sudo chmod -R 644 ${HOME}/Sites/index.html
 
 # Create the PHP Info file in the user's home directory
-echo "<?php phpinfo(); ?>" > ${HOME}/Sites/phpinfo.php
+echo "<?php phpinfo(); ?>" > ${HOME}/Sites/php-info.php
+sudo chmod -R 644 ${HOME}/Sites/php-info.php
 
-# Install composer using Homebrew
-brew list composer || brew install composer
-# Add installed package to the array
-database+=("Composer")
+# Change the group for the directory and files
+chgrp -R -f staff ${HOME}/Sites
 
-# Install NodeJS (npm) using Homebrew
-brew list node || brew install node
-# Add installed package to the array
-database+=("NodeJS (npm)")
+# Reload nginx service as a root
+sudo nginx -s reload
+database+=("Nginx Web Server")
 
 # Initialize a variable to control the loop
 install_more_packages=true
