@@ -13,13 +13,7 @@ function killport() {
   elif [[ "$1" =~ ^[0-9]{2,5}$ ]]; then
     # Ask for the administrator password upfront
     sudo -v
-    if [ "$2" != "silent" ]; then
-    echo # empty line ;)
-    echo "Killing processes running on port \033[1m$1\033[0m ..."
-    fi
-    lsof -i -P | grep -i "$2" | awk "{print $2}" | xargs kill
-    if [ "$2" != "silent" ]; then
-    echo # empty line ;)
+    lsof -i -P | grep -i "$1" | awk "{print $2}" | xargs kill
     fi
   else
     echo # empty line ;)
