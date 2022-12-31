@@ -220,6 +220,11 @@ database+=("Nginx Web Server")
 # Initialize a variable to control the loop
 install_more_packages=true
 
+# Install Karabiner-elements
+#brew install --cask karabiner-elements
+curl https://woz.ooo/dl/dotfiles/macOS/karabiner.json -o /Users/${USER}/.config/karabiner/karabiner.json
+
+
 # Start the loop
 while [ $install_more_packages == true ]
 do
