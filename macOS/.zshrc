@@ -17,7 +17,7 @@ function killport() {
     echo # empty line ;)
     echo "Killing processes running on port \033[1m$1\033[0m ..."
     fi
-    lsof -i -P | grep -i "80" | awk "{print $2}" | xargs kill
+    lsof -i -P | grep -i "$2" | awk "{print $2}" | xargs kill
     if [ "$2" != "silent" ]; then
     echo # empty line ;)
     fi
