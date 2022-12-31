@@ -222,7 +222,11 @@ sudo -v
           # Start specified service
           check_service=$(ps aux | grep -o "$2" | wc -l)
           if [ "$check_service" -le 1 ]; then
+          if [ "$2" = "nginx" ]; then
+          sudo nginx
+          else
           brew services start $2
+          fi 
           else
           echo # empty line ;) 
           echo "\033[1mUnexpected Error:\033[0m check if \033[1m\033[3m$2\033[0m\033[0m is installed on the system."
@@ -234,14 +238,22 @@ sudo -v
           # Stop specified service
           check_service=$(ps aux | grep -o "$2" | wc -l)
           if [ "$check_service" -gt 1 ]; then
-          brew services stop $2                   
+          if [ "$2" = "nginx" ]; then
+          sudo nginx -s quit
+          else
+          brew services stop $2
+          fi                   
           fi  
           ;;
         restart)
           # Restart specified service
           check_service=$(ps aux | grep -o "$2" | wc -l)
           if [ "$check_service" -gt 1 ]; then
-          brew services restart $2                   
+          if [ "$2" = "nginx" ]; then
+          sudo nginx -s reload
+          else
+          brew services restart $2
+          fi                    
           fi  
           ;;
       esac
