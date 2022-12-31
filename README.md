@@ -78,7 +78,6 @@ You can use the `dev db install` command to install all the most popular databas
 
 `killport (number)` - to kill processes running on a specific port (e.g.: killport 8080)
 
-`killport (number) silent` - to kill processes without receiving a message (e.g.: killport 8080 silent)
 
 <br />
 
