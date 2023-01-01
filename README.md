@@ -87,6 +87,8 @@ You can use the `dev db install` command to install all the most popular databas
 
 `killport (number)` - to kill processes running on a specific port (e.g.: killport 8080)
 
+`nginxssl (host)` - to create new host with SSL (e.g.: nginxssl web.x)
+
 
 <br />
 
