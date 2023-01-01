@@ -211,6 +211,19 @@ sudo chmod -R 775 ${HOME}/Sites
 sed -i '' "s:{{user}}:${USER}:" $conf_file
 sed -i '' "s:{{root}}:${HOME}/Sites:" $conf_file
 
+# Make directory for Error pages
+mkdir ${HOME}/Sites/errors
+sudo chmod -R 775 ${HOME}/Sites/errors
+
+# Download the prepared static error pages
+curl https://gist.githubusercontent.com/thewozniak/9ec84e272d553c94ac9f037334f36917/raw/712c8566cbf439e3ff2f7abe5177dcb013ed613f/page-401.html -o ${HOME}/Sites/errors/401.html
+curl https://gist.githubusercontent.com/thewozniak/22978851c7313e947a8bc08f349a1b23/raw/cfa61c1ee20ae3c40b222f05032e2558f16838c8/page-403.html -o ${HOME}/Sites/errors/403.html
+curl https://gist.githubusercontent.com/thewozniak/8f8ed28d7c787459b9a7883a7476f6ec/raw/e929ab553227d9a79b5949224808d3fccae786b8/page-404.html -o ${HOME}/Sites/errors/404.html
+curl https://gist.githubusercontent.com/thewozniak/6e56d8fb60490cea2200bae803245325/raw/8a5bb66d7894fc480b1e6149a2b2e7d68f1c7c92/page-500.html -o ${HOME}/Sites/errors/500.html
+curl https://gist.githubusercontent.com/thewozniak/7bdeb9a83cd7b9dc0e55393d11e4f0c3/raw/f600d5d3e7b0976fd2578389e99441710ce5b9ae/page-502.html -o ${HOME}/Sites/errors/502.html
+curl https://gist.githubusercontent.com/thewozniak/8dc1c771d472598aceb2e92cfd380488/raw/289adc7ab163abf7eb510e720c1ff5f5fd30795e/page-503.html -o ${HOME}/Sites/errors/503.html
+curl https://gist.githubusercontent.com/thewozniak/5c498f94b5b095585971f3580299ab4f/raw/626bdb67e41739a63cd85cea108601a19cf5d4dc/page-504.html -o ${HOME}/Sites/errors/504.html
+
 # Make directory for SSL
 # e.g: /usr/local/etc/nginx/ssl/ for Intel x86-64
 # e.g: /opt/homebrew/etc/nginx/ssl/ for Apple M-series
