@@ -165,9 +165,13 @@ sudo pecl install mailparse
 
 # Install msgpack using Homebrew
 brew install msgpack
+if grep -q "^extension=msgpack.so" $php_ini; then
+  sed -i '/^extension=msgpack.so/d' $php_ini
+fi
+echo "extension=msgpack.so" | sudo tee -a $php_ini
 
-# Install OAuth using Homebrew
-brew install oauth
+# Install OAuth using PECL insted of Homebrew
+pecl install oauth
 
 # Install Redis using PECL
 yes '' | sudo pecl install redis
