@@ -255,3 +255,39 @@ sudo -v
 
   fi
 }
+
+function nginxssl() {
+if [ -z "$1" ] || [ "$1" = "info" ] ; then
+    echo "----"
+    echo # empty line ;)
+    echo "To create new host with SSL type \033[1mnginxssl hostname\033[0m (e.g.: nginxssl web.x)"
+    echo # empty line ;) 
+    echo "- following host will be created: \033[3m\033[4mhttps://web.x\033[0m\033[0m & \033[3m\033[4mhttp://web.x\033[0m\033[0m"
+    echo # empty line ;) 
+    echo "- the home path for the host will be as follows: \033[3m/Users/${USER}/Sites/web.x\033[0m"
+    echo # empty line ;) 
+else
+  if test -f /usr/local/etc/nginx/servers/$1.conf; then
+    echo # empty line ;) 
+    echo "It appears that \033[1m$1\033[0m host exists - aborting..."  
+    echo # empty line ;)  
+  else
+    # Ask for the administrator password upfront
+    sudo -v  
+    wget https://woz.ooo/dl/dotfiles/macOS/nginx-server-template.conf -O /usr/local/etc/nginx/servers/$1.conf
+    sed -i '' "s:{{host}}:$1:" /usr/local/etc/nginx/servers/$1.conf
+    sed  -i '' "s:{{root}}:${HOME}/Sites/$1:" /usr/local/etc/nginx/servers/$1.conf
+    mkdir ${HOME}/Sites/$1
+    sudo chmod -R 775 ${HOME}/Sites/$1
+    openssl req \
+        -x509 -sha256 -nodes -newkey rsa:2048 -days 3650 \
+        -subj "/CN=$1" \
+        -reqexts SAN \
+        -extensions SAN \
+        -config <(cat /System/Library/OpenSSL/openssl.cnf; printf "[SAN]\nsubjectAltName=DNS:$1") \
+        -keyout /usr/local/etc/nginx/ssl/$1.key \
+        -out /usr/local/etc/nginx/ssl/$1.crt
+    sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain /usr/local/etc/nginx/ssl/$1.crt  
+  fi
+fi
+}
