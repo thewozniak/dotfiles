@@ -236,7 +236,7 @@ sudo nginx -s reload
 database+=("Nginx Web Server")
 
 # Install Karabiner-elements
-#brew install --cask karabiner-elements
+brew install --cask karabiner-elements
 curl https://woz.ooo/dl/dotfiles/macOS/karabiner.json -o /Users/${USER}/.config/karabiner/karabiner.json
 
 # Initialize a variable to control the loop
