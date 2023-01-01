@@ -18,7 +18,6 @@ It helps me and speeds up system configurations, to my preferred settings. In ad
 - Redis PHP extension
 - mailparse PHP extension
 - msgpack PHP extension
-- graphicsmagick (image processing tool)
 - imagick (ImageMagick)
 - pkg-config (helper tool)
 
