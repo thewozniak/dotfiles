@@ -93,9 +93,9 @@ You can use the `dev db install` command to install all the most popular databas
 ### Enviroment details<br />
 
 <strong>PHP</strong> is running on port: <strong>9000</strong> (user: $user)<br />
-<strong>Nginx</strong> is running on port: <strong>80</strong> (user: root)<br />
+<strong>Nginx</strong> is running on port: <strong>80/443</strong> (user: root)<br />
 
-Your dev-env address is: <i>http://dev.mac</i> and <i>http://localhost</i><br />
+Your dev-env address is: <i>http(s)://dev.mac</i> and <i>http(s)://localhost</i><br />
 Sites default files path is: <i>$HOME/Sites</i><br />
 
 
@@ -115,3 +115,19 @@ PHP (php.ini)           /opt/homebrew/etc/php/8.x/php.ini
 Nginx (nginx.conf)      /opt/homebrew/etc/nginx/nginx.conf
 ```
 
+
+
+```sh
+# Paths to nginx servers configuration files is:
+
+Intel x86 Chipsets       /usr/local/etc/nginx/servers/
+Apple Silicons (SoC)     /opt/homebrew/etc/nginx/servers/
+```
+
+
+```sh
+# Paths to SSL (.crt/.key) files is:
+
+Intel x86 Chipsets       /usr/local/etc/nginx/ssl/
+Apple Silicons (SoC)     /opt/homebrew/etc/nginx/ssl/
+```
