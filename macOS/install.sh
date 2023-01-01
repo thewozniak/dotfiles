@@ -208,6 +208,8 @@ curl https://woz.ooo/dl/dotfiles/macOS/nginx.conf -o $nginx_file
 # e.g: /usr/local/etc/nginx/ssl/ for Intel x86-64
 # e.g: /opt/homebrew/etc/nginx/ssl/ for Apple M-series
 mkdir $brew_path/etc/nginx/ssl/
+sudo chown $(whoami):admin $brew_path/etc/nginx/ssl/
+sudo chmod 755 $brew_path/etc/nginx/ssl/
 
 # Add the line "127.0.0.1 dev.mac" to the end of the /etc/hosts file
 echo "127.0.0.1       dev.mac" | sudo tee -a /etc/hosts
