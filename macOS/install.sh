@@ -349,7 +349,7 @@ done
 
 echo -e "\n\033[32mDONE!\033[0m \033[1mDevelopment Enviroment\033[0m is ready to code!"
 echo -e "\n\033[1mPHP\033[0m is running on port: \033[4m9000\033[0m (user: ${USER})"
-echo -e "\033[1mNginx\033[0m is running on port: \033[4m80\033[0m, \033[4m443\033[0m (user: root)"
+echo -e "\033[1mNginx\033[0m is running on ports: \033[4m80\033[0m, \033[4m443\033[0m (user: root)"
 echo -e "\nYour dev-env address is: \033[1m\033[4m\033[3mhttp(s)://dev.mac\033[0m\033[0m\033[0m and \033[1m\033[4m\033[3mhttp(s)://localhost\033[0m\033[0m\033[0m"
 echo -e "Sites default files path is: \033[4m\033[3m${HOME}/Sites\033[0m\033[0m"
 echo -e "\nPHP configuration file path is: \033[4m\033[3m$php_ini\033[0m\033[0m"
@@ -363,7 +363,7 @@ echo "
 # WebSite: https://woz.ooo
 
 PHP is running on port: 9000 (user: ${USER})
-Nginx is running on port: 80, 443 (user: root)
+Nginx is running on ports: 80, 443 (user: root)
 
 Your dev-env address is: http://dev.mac and http://localhost
 Sites default files path is: ${HOME}/Sites
