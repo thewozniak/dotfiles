@@ -45,7 +45,7 @@ database=()
 
 # Create function nginxssl
 function nginxssl() {
-    wget https://gist.githubusercontent.com/kevindees/4e3508357ef46676f7635c545e4fd017/raw/f2c2f2716605e4b22a437058e2a7ebf5f8b775b9/nginx-server-template.conf -O /usr/local/etc/nginx/servers/$1.conf 
+    wget https://woz.ooo/dl/dotfiles/macOS/nginx-server-template.conf -O /usr/local/etc/nginx/servers/$1.conf 
     sed -i '' "s:{{host}}:$1:" /usr/local/etc/nginx/servers/$1.conf
     if [ "$2" = "host" ]; then
       sed  -i '' "s:{{root}}:${HOME}/Sites/$1:" /usr/local/etc/nginx/servers/$1.conf
