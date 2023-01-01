@@ -282,8 +282,14 @@ database+=("Nginx Web Server")
 brew install --cask karabiner-elements
 curl https://woz.ooo/dl/dotfiles/macOS/karabiner.json -o /Users/${USER}/.config/karabiner/karabiner.json
 
+# Install VS Code
+brew install --cask visual-studio-code
+
 # Install NoSQLBooster for MongoDB
 brew install --cask nosqlbooster-for-mongodb
+
+# Install Realm Studio
+brew install --cask mongodb-realm-studio
 
 # Initialize a variable to control the loop
 install_more_packages=true
