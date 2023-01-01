@@ -5,6 +5,7 @@
 These are my personal dofilest. If you'd like to learn more about it, check out [GitHub ❤ ~/](http://dotfiles.github.io) page.
 
 It helps me and speeds up system configurations, to my preferred settings. In addition to configuring macOS to the defaults I use, you can install the following development environment components and libraries:
++ <strong>Mac App Store command-line interface</strong>
 + <strong>Xcode command-line tools</strong>
 + <strong>Homebrew</strong>
 + <strong>OpenSSL</strong>
@@ -20,7 +21,10 @@ It helps me and speeds up system configurations, to my preferred settings. In ad
 - msgpack PHP extension
 - imagick (ImageMagick)
 - pkg-config (helper tool)
-
++ Karabiner-elements
++ Visual Studio Code (VSCode)
++ NoSQLBooster for MongoDB
++ Realm Studio
 
 
 
