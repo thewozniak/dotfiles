@@ -207,7 +207,7 @@ echo "<!DOCTYPE html><html><head><title>Welcome to nginx!</title><style>html { c
 sudo chmod -R 644 ${HOME}/Sites/index.html
 
 # Create the PHP Info file in the user's home directory
-echo "<?php phpinfo(); ?>" > ${HOME}/Sites/php-info.php
+echo "<?php echo phpinfo(); ?>" > ${HOME}/Sites/php-info.php
 sudo chmod -R 644 ${HOME}/Sites/php-info.php
 
 # Change the group for the directory and files
@@ -217,12 +217,12 @@ chgrp -R -f staff ${HOME}/Sites
 sudo nginx -s reload
 database+=("Nginx Web Server")
 
-# Initialize a variable to control the loop
-install_more_packages=true
-
 # Install Karabiner-elements
 #brew install --cask karabiner-elements
 curl https://woz.ooo/dl/dotfiles/macOS/karabiner.json -o /Users/${USER}/.config/karabiner/karabiner.json
+
+# Initialize a variable to control the loop
+install_more_packages=true
 
 
 # Start the loop
