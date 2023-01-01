@@ -201,8 +201,15 @@ sudo nginx
 # default path for Intel x86-64 Chipset into nginx.conf file is: /usr/local/etc/nginx/nginx.conf
 # default path for Apple Silicon M-Series Chipset into nginx.conf file is: /opt/homebrew/etc/nginx/nginx.conf
 
+# Download the nginx configuration template file
 mv -f $nginx_file $nginx_file.conf.bak
-curl https://woz.ooo/dl/dotfiles/macOS/nginx.conf -o $nginx_file
+curl https://woz.ooo/dl/dotfiles/macOS/nginx-template.conf -o $nginx_file
+
+# Edit the Nginx configuration file and update the "user" and "root" directive
+mkdir ${HOME}/Sites
+sudo chmod -R 775 ${HOME}/Sites
+sed -i '' "s:{{user}}:${USER}" $conf_file
+sed -i '' "s:{{root}}:${HOME}/Sites" $conf_file
 
 # Make directory for SSL
 # e.g: /usr/local/etc/nginx/ssl/ for Intel x86-64
@@ -213,12 +220,6 @@ sudo chmod 755 $brew_path/etc/nginx/ssl/
 
 # Add the line "127.0.0.1 dev.mac" to the end of the /etc/hosts file
 echo "127.0.0.1       dev.mac" | sudo tee -a /etc/hosts
-
-# Edit the Nginx configuration file and update the "root" directive
-mkdir ${HOME}/Sites
-sudo chmod -R 775 ${HOME}/Sites
-sed -i '' '1 s/^#*user[[:blank:]]\+.*;/user  ${USER} staff;/' $conf_file
-sed -i '' 's#^\( *\)root /.*;#\1root ${HOME}/Sites;#' $conf_file
 
 # Create the index.html file in the user's home directory
 echo "<!DOCTYPE html><html><head><title>Welcome to nginx!</title><style>html { color-scheme: light dark; } body { width: 35em; margin: 0 auto; font-family: Tahoma, Verdana, Arial, sans-serif; } p.dev{ margin-left:18px; }</style></head><body><h1>Welcome to nginx!</h1><p>If you see this page, the nginx web server is successfully installed and working. Further configuration is required.</p><p>For online documentation and support please refer to <a href='http://nginx.org/'>nginx.org</a>.<br/>Commercial support is available at <a href='http://nginx.com/'>nginx.com</a>.</p><p class='dev'>The addresses of the development environment are:<br /><strong><em>http://localhost</strong> and <strong>http://dev.mac</em></strong><br />and both are running on port 80</p><p class='dev'>The directory with the files for the home page is: ${HOME}/Sites<br/>Click <a href='php-info.php'>here</a> to view phpinfo() configuration.</p><p><em>Thank you for using nginx</em></p><p><em>&copy; 2022 - <a href='https://woz.ooo'>woz.ooo</a></em></p></body></html>" > ${HOME}/Sites/index.html
