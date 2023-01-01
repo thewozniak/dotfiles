@@ -5,15 +5,25 @@
 These are my personal dofilest. If you'd like to learn more about it, check out [GitHub ❤ ~/](http://dotfiles.github.io) page.
 
 It helps me and speeds up system configurations, to my preferred settings. In addition to configuring macOS to the defaults I use, you can install the following development environment components and libraries:
-- Xcode command-line tools
-- Homebrew
-- OpenSSL
-- Wget
-- PHP (latest)
+- <strong>Xcode command-line tools</strong>
+- <strong>Homebrew</strong>
+- <strong>OpenSSL</strong>
+- <strong>Wget</strong>
+- <strong>PHP (8.x)</strong>
+- <strong>Nginx (1.2x.x)</strong>
+- <strong>Composer</strong>
+- <strong>Node</strong>
 - MongoDB PHP Driver
-- Nginx
-- Composer
-- Node
+- OAuth consumer extension
+- Redis PHP extension
+- mailparse PHP extension
+- msgpack PHP extension
+- graphicsmagick (image processing tool)
+- imagick (ImageMagick)
+- pkg-config (helper tool)
+
+
+
 
 During the installation process, you can install additional libraries available in the homebrew repository.
 <br /><br />
