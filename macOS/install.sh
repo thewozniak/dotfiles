@@ -121,13 +121,6 @@ php_ini=$(php -r "phpinfo();" | grep php.ini | cut -d' ' -f5)
 # Output e.g:
 # /usr/local/etc/php/7.4/php.ini
 
-# Check if the php.ini file exists in the default location
-if test -f $php_ini; then
-  # The php.ini file exists in the default location
-else
-  # The php.ini file does not exist in the default location
-fi
-
 # Change permissions for directories
 sudo chmod -R 777 /private/tmp/pear/*
 sudo chmod -R 777 /usr/local/share/pear/*
@@ -155,7 +148,7 @@ database+=("MongoDB PHP Driver (extension)")
 brew instal pkg-config
 
 # Install image processing tools collection
-brew install GraphicsMagick
+#brew install graphicsmagick
 
 # Install imagick for PHP using PECL
 yes '' | sudo pecl install imagick
@@ -189,7 +182,7 @@ sudo nginx
 # default path for Intel x86-64 Chipset into nginx.conf file is: /usr/local/etc/nginx/nginx.conf
 # default path for Apple Silicon M-Series Chipset into nginx.conf file is: /opt/homebrew/etc/nginx/nginx.conf
 
-mv -f $nginx_file $nginx_file.bak
+mv -f $nginx_file $nginx_file.conf.bak
 curl https://woz.ooo/dl/dotfiles/macOS/nginx.conf -o $nginx_file
 
 # Make directory for SSL
