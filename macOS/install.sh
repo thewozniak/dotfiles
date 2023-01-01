@@ -113,6 +113,9 @@ else
   exit 1
 fi
 
+# Install Mac App Store command-line interface
+brew install mas
+
 # Install OpenSSL using Homebrew
 brew list openssl || brew install openssl
 database+=("OpenSSL")
@@ -278,6 +281,9 @@ database+=("Nginx Web Server")
 # Install Karabiner-elements
 brew install --cask karabiner-elements
 curl https://woz.ooo/dl/dotfiles/macOS/karabiner.json -o /Users/${USER}/.config/karabiner/karabiner.json
+
+# Install NoSQLBooster for MongoDB
+brew install --cask nosqlbooster-for-mongodb
 
 # Initialize a variable to control the loop
 install_more_packages=true
