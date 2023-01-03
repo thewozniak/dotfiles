@@ -137,3 +137,5 @@ Apple Silicons (SoC)     /opt/homebrew/etc/nginx/servers/
 Intel x86 Chipsets       /usr/local/etc/nginx/ssl/
 Apple Silicons (SoC)     /opt/homebrew/etc/nginx/ssl/
 ```
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/E1E3HJ8PE)
