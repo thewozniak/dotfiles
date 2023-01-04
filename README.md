@@ -102,7 +102,7 @@ You can use the `dev db install` command to install all the most popular databas
 <strong>Nginx</strong> is running on ports: <strong>80, 443</strong> (user: root)<br />
 
 Your dev-env address is: <i>http(s)://dev.mac</i> and <i>http(s)://localhost</i><br />
-Sites default files path is: <i>$HOME/Sites</i><br />
+Sites default files path is: <i>$HOME/Sites</i> (<i>/Users/<user_name>/Sites</i>)<br />
 
 
 ```sh
