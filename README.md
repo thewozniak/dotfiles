@@ -4,7 +4,9 @@
 
 These are my personal dofilest. If you'd like to learn more about it, check out [GitHub ❤ ~/](http://dotfiles.github.io) page.
 
-It helps me and speeds up system configurations, to my preferred settings. In addition to configuring macOS to the defaults I use, you can install the following development environment components and libraries:
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/E1E3HJ8PE)
+
+It helps me and speeds up system configurations, to my preferred settings. In addition to configuring macOS to the defaults I use. It can also install the following development environment components and libraries:
 + <strong>Mac App Store command-line interface</strong>
 + <strong>Xcode command-line tools</strong>
 + <strong>Homebrew</strong>
