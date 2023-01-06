@@ -97,7 +97,8 @@ php_ini=$(php -r "phpinfo();" | grep php.ini | cut -d' ' -f5)
 # /usr/local/etc/php/7.4/php.ini
 
 # Configure PHP environment
-echo "[extensions]" | sudo tee -a $php_ini
+echo " " >> $php_ini
+echo "[extension]" >> $php_ini
 perl -i -pe 's/^(;\s*default_charset =|default_charset =).*/default_charset = "UTF-8"/' $php_ini
 perl -i -pe 's/^(;\s*max_execution_time =|max_execution_time =).*/max_execution_time = 300/' $php_ini
 perl -i -pe 's/^(;\s*max_file_uploads =|max_file_uploads =).*/max_file_uploads = 300/' $php_ini
@@ -124,18 +125,11 @@ brew install pcre
 # Install Mongo PHP Driver for MongoDB using PECL
 sudo pecl install mongodb
 
-# Add MongoDB extension to PHP
-#if grep -q "^extension=mongodb.so" $php_ini; then
-#  sed -i '/^extension=mongodb.so/d' $php_ini
-#fi
-#if grep -q "\[extensions\]" $php_ini; then
-#  if grep -q "mongodb.so" $php_ini; then
-#    sed -i '/^extension=mongodb.so/d' $php_ini
-#  fi
-#else
-#  echo "[extensions]" | sudo tee -a $php_ini
-#fi
-#echo "extension=mongodb.so" | sudo tee -a $php_ini
+first_line=$(head -n 1 "$php_ini")
+if [[ $first_line =~ "extension=\"mongodb.so\"" ]]; then
+  sed -i -e "1d" "$php_ini"
+  echo 'extension="mongodb.so"' >> $php_ini
+fi
 database+=("MongoDB PHP Driver (extension)")
 
 # Install pkgconfig using Homebrew
@@ -213,6 +207,10 @@ sudo chmod -R 644 ${HOME}/Sites/php-info.php
 
 # Change the group for the directory and files
 chgrp -R -f staff ${HOME}/Sites
+
+# Create and add SSL certificates for hosts
+nginxssl localhost
+nginxssl dev.mac
 
 # Reload nginx service as a root
 sudo nginx -s reload
@@ -323,13 +321,7 @@ done
 # Download the .zshrc file to your home directory
 rm -rf ${HOME}/.zshrc
 curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/.zshrc -o ~/.zshrc
-# Run .zshrc
-. ~/.zshrc
-# Create and add SSL certificates for hosts
-nginxssl localhost
-nginxssl dev.mac
-# Reload nginx
-sudo nginx -s reload
+
 echo # empty line ;)
 echo "\033[1mThe following packages and libraries have been installed:\033[0m"
 for item in "${database[@]}"
