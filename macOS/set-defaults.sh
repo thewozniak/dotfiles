@@ -16,7 +16,7 @@ text="Setting up you Mac..."
 tput setaf 0 
 tput bold
 for (( i=0; i<15; i++ )); do
-  echo -n "${text:$i:1}"
+  echo "${text:$i:1}"
   sleep 0.05
 done
 tput sgr0
@@ -52,7 +52,7 @@ case "$computer_name" in
     ;;             
 esac
 
-echo -e "[\033[1m\033[34mSetting up\033[0m\033[0m] computer name: \033[1m$computer_name\033[0m"
+echo "[\033[1m\033[34mSetting up\033[0m\033[0m] computer name: \033[1m$computer_name\033[0m"
 sudo scutil --set ComputerName "$computer_name"
 
 # Replace any spaces in the computer name with hyphens
@@ -61,22 +61,22 @@ local_host_name=${computer_name// /-}
 host_name=$(echo "$local_host_name" | tr '[:upper:]' '[:lower:]')
 
 # Set the local host name
-echo -e "[\033[1m\033[35mSetting up\033[0m\033[0m] localhost name: \033[1m$local_host_name\033[0m"
+echo "[\033[1m\033[35mSetting up\033[0m\033[0m] localhost name: \033[1m$local_host_name\033[0m"
 sudo scutil --set LocalHostName $local_host_name
 
 # Set the hostname
-echo -e "[\033[1m\033[33mSetting up\033[0m\033[0m] hostname: \033[1m$host_name\033[0m"
+echo "[\033[1m\033[33mSetting up\033[0m\033[0m] hostname: \033[1m$host_name\033[0m"
 sudo scutil --set HostName $host_name
 
 # Ask the user to choose the appearance
-echo -e "[\033[1m\033[36mSetting up\033[0m\033[0m] appearance to: Light "
+echo "[\033[1m\033[36mSetting up\033[0m\033[0m] appearance to: Light "
 defaults write -g "AppleInterfaceStyle" "Light"
 
 #######################################################################
 # Regional Settsings & Language (System Preferences → General)
 #######################################################################
 
-echo -e "[\033[1mSetting up\033[0m] clock settings..."
+echo "[\033[1mSetting up\033[0m] clock settings..."
 
 # Show the clock in the menu bar with seconds
 defaults write com.apple.menuextra.clock IsAnalog -bool false
@@ -96,7 +96,7 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bo
 # Software Updates (System Preferences → General → Updates)
 #######################################################################
 
-echo -e "[\033[1m\033[34mSetting up\033[0m\033[0m] software updates settings..."
+echo "[\033[1m\033[34mSetting up\033[0m\033[0m] software updates settings..."
 
 # Enable automatic checking for updates
 defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
@@ -113,7 +113,7 @@ defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -bool true
 # AirDrop & Handoff (System Preferences → General → AirDrop)
 #######################################################################
 
-echo -e "[\033[1m\033[35mSetting up\033[0m\033[0m] Handoff & AirDrop settings..."
+echo "[\033[1m\033[35mSetting up\033[0m\033[0m] Handoff & AirDrop settings..."
 
 # Enable Handoff
 defaults write com.apple.coreservices.useractivityd ActivityAdvertisingAllowed -bool true
@@ -125,7 +125,7 @@ defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool false
 # Time Machine (System Preferences → General → Time Machine)
 #######################################################################
 
-echo -e "[\033[1m\033[33mSetting up\033[0m\033[0m] Time Machine settings..."
+echo "[\033[1m\033[33mSetting up\033[0m\033[0m] Time Machine settings..."
 
 # Prevent Time Machine from prompting to use new hard drives as a backup volume
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
@@ -134,7 +134,7 @@ defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 # Finder and Appearance (System Preferences → Appearance)
 #######################################################################
 
-echo -e "[\033[1m\033[36mSetting up\033[0m\033[0m] Finder settings..."
+echo "[\033[1m\033[36mSetting up\033[0m\033[0m] Finder settings..."
 
 # Show hard drives on the desktop
 defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
@@ -213,7 +213,7 @@ defaults write com.apple.systemuiserver menuExtras -array-add "/System/Library/C
 # Siri & Spotlight (System Preferences → Siri & Spotlight)
 #######################################################################
 
-echo -e "[\033[1mSetting up\033[0m] Siri & Spotlight settings..."
+echo "[\033[1mSetting up\033[0m] Siri & Spotlight settings..."
 
 # Disable Ask Siri
 defaults write com.apple.Siri StatusMenuVisible -bool false
@@ -255,7 +255,7 @@ sudo mdutil -E / > /dev/null
 # Privacy & Security (System Preferences → Privacy & Security)
 #######################################################################
 
-echo -e "[\033[1m\033[34mSetting up\033[0m\033[0m] Privacy & Security settings..."
+echo "[\033[1m\033[34mSetting up\033[0m\033[0m] Privacy & Security settings..."
 
 # Allow applications to be downloaded from the App Store and identified developers
 sudo spctl --master-enable
@@ -281,7 +281,7 @@ sudo pmset -a displaysleep 10
 # Desktop & Dock (System Preferences → Desktop & Dock)
 #######################################################################
 
-echo -e "[\033[1m\033[35mSetting up\033[0m\033[0m] Desktop & Dock..."
+echo "[\033[1m\033[35mSetting up\033[0m\033[0m] Desktop & Dock..."
 
 # Change the position of the Dock to the bottom of the screen
 defaults write com.apple.dock orientation -string bottom
@@ -321,7 +321,7 @@ defaults write com.apple.dock tilesize -int 44
 # Displays
 #######################################################################
 
-echo -e "[\033[1m\033[33mSetting up\033[0m\033[0m] Displays settings..."
+echo "[\033[1m\033[33mSetting up\033[0m\033[0m] Displays settings..."
 
 # Enable HiDPI display modes
 sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
@@ -334,7 +334,7 @@ defaults write NSGlobalDomain AppleFontSmoothing -int 1
 # Energy Saver (System Preferences → Energy Saver)
 #######################################################################
 
-echo -e "[\033[1m\033[36mSetting up\033[0m\033[0m] Energy Saver settings..."
+echo "[\033[1m\033[36mSetting up\033[0m\033[0m] Energy Saver settings..."
 
 # Check if the computer is a laptop
 if [[ $(system_profiler SPHardwareDataType | awk '/Model Name/ {print $3}') == 'MacBook' ]]; then
@@ -386,7 +386,7 @@ defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 # Mouse (System Preferences → Mouse)
 #######################################################################
 
-echo -e "[\033[1mSetting up\033[0m] Mouse settings..."
+echo "[\033[1mSetting up\033[0m] Mouse settings..."
 
 # Enable the secondary (right) click on a Magic Mouse (System Preferences → Mouse)
 defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseButtonMode TwoButton
@@ -417,7 +417,7 @@ defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 # Safari & WebKit  
 #######################################################################
 
-echo -e "[\033[1m\033[34mSetting up\033[0m\033[0m] Safari & WebKit settings..."
+echo "[\033[1m\033[34mSetting up\033[0m\033[0m] Safari & WebKit settings..."
 
 # Privacy: don’t send search queries to Apple
 defaults write com.apple.Safari UniversalSearchEnabled -bool false
@@ -446,7 +446,7 @@ defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 # Others
 #######################################################################
 
-echo -e "[\033[1m\033[35mSetting up\033[0m\033[0m] other essentials settings..."
+echo "[\033[1m\033[35mSetting up\033[0m\033[0m] other essentials settings..."
 
 # File System Access
 sudo defaults write com.apple.AppleFileServer guestAccess -bool false
@@ -491,13 +491,13 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo Hos
 #######################################################################
 
 # Check if Xcode is already installed
-echo -e "\n[\033[1m\033[33mChecking up\033[0m\033[0m] Xcode command-line tools..."
+echo "\n[\033[1m\033[33mChecking up\033[0m\033[0m] Xcode command-line tools..."
 if test ! $(which xcode-select); then
   # Xcode is not installed
-  echo -e "\n[\033[1m\033[31mnot found\033[0m\033[0m] \033[1minstallation is recommended\033[0m"
+  echo "\n[\033[1m\033[31mnot found\033[0m\033[0m] \033[1minstallation is recommended\033[0m"
   sleep 2
   # Install Xcode command-line tools
-  echo -e "\033[1m\033[36m==>\033[0m\033[0m \033[1mlaunching:\033[0m \033[4m\033[3mxcode-select --install\033[0m\033[0m\n"
+  echo "\033[1m\033[36m==>\033[0m\033[0m \033[1mlaunching:\033[0m \033[4m\033[3mxcode-select --install\033[0m\033[0m\n"
   sleep 2  
   xcode-select --install
 else
@@ -509,4 +509,4 @@ fi
 # Done!
 
 # Display information about the need to restart the machine
-echo -e "\n[\033[1m\033[32mDONE\033[0m\033[0m] \033[1mNote that some of these changes require a restart to take effect.\033[0m\n\n"
+echo "\n[\033[1m\033[32mDONE\033[0m\033[0m] \033[1mNote that some of these changes require a restart to take effect.\033[0m\n\n"
