@@ -2,7 +2,7 @@
 
 # Ask the user if they want to prepare the development environment
 echo # just an empty line ;)
-read -p "\033[1mDo you want to prepare the development environment?\033[0m [y/n] " answer
+read -p "Do you want to prepare the development environment? [y/n] " answer
 
 if [ "$answer" != "${answer#[Yy]}" ]; then
 
@@ -17,28 +17,6 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Create an empty array named 'database' to add information about installed packages
 database=()
-
-# Create function nginxssl
-function nginxssl() {
-    wget https://woz.ooo/dl/dotfiles/macOS/nginx-server-template.conf -O /usr/local/etc/nginx/servers/$1.conf 
-    sed -i '' "s:{{host}}:$1:" /usr/local/etc/nginx/servers/$1.conf
-    if [ "$2" = "host" ]; then
-      sed  -i '' "s:{{root}}:${HOME}/Sites/$1:" /usr/local/etc/nginx/servers/$1.conf
-      mkdir ${HOME}/Sites/$1
-      sudo chmod -R 775 ${HOME}/Sites/$1
-    else
-      sed  -i '' "s:{{root}}:${HOME}/Sites:" /usr/local/etc/nginx/servers/$1.conf
-    fi
-    openssl req \
-        -x509 -sha256 -nodes -newkey rsa:2048 -days 3650 \
-        -subj "/CN=$1" \
-        -reqexts SAN \
-        -extensions SAN \
-        -config <(cat /System/Library/OpenSSL/openssl.cnf; printf "[SAN]\nsubjectAltName=DNS:$1") \
-        -keyout /usr/local/etc/nginx/ssl/$1.key \
-        -out /usr/local/etc/nginx/ssl/$1.crt
-    sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain /usr/local/etc/nginx/ssl/$1.crt
-}
 
 # Check if Xcode is already installed
 echo "\n[\033[1m\033[33mChecking up\033[0m\033[0m] Xcode command-line tools..."
@@ -115,6 +93,28 @@ database+=("Composer")
 brew list node || brew install node
 # Add installed package to the array
 database+=("NodeJS (npm)")
+
+# Create function nginxssl
+function nginxssl() {
+    wget https://woz.ooo/dl/dotfiles/macOS/nginx-server-template.conf -O /usr/local/etc/nginx/servers/$1.conf 
+    sed -i '' "s:{{host}}:$1:" /usr/local/etc/nginx/servers/$1.conf
+    if [ "$2" = "host" ]; then
+      sed  -i '' "s:{{root}}:${HOME}/Sites/$1:" /usr/local/etc/nginx/servers/$1.conf
+      mkdir ${HOME}/Sites/$1
+      sudo chmod -R 775 ${HOME}/Sites/$1
+    else
+      sed  -i '' "s:{{root}}:${HOME}/Sites:" /usr/local/etc/nginx/servers/$1.conf
+    fi
+    openssl req \
+        -x509 -sha256 -nodes -newkey rsa:2048 -days 3650 \
+        -subj "/CN=$1" \
+        -reqexts SAN \
+        -extensions SAN \
+        -config <(cat /System/Library/OpenSSL/openssl.cnf; printf "[SAN]\nsubjectAltName=DNS:$1") \
+        -keyout /usr/local/etc/nginx/ssl/$1.key \
+        -out /usr/local/etc/nginx/ssl/$1.crt
+    sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain /usr/local/etc/nginx/ssl/$1.crt
+}
 
 # Determine the location of the php.ini file
 php_ini=$(php -r "phpinfo();" | grep php.ini | cut -d' ' -f5)
