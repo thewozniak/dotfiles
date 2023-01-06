@@ -31,32 +31,54 @@ esac
 case "$WHAT_ENV" in
   "IntelMac"|"AppleSilicon")
     echo -e "\n"
-    text="Preparing a Mac..."
-    tput setaf 0 
-    tput bold
-    for (( i=0; i<12; i++ )); do
+    if [ "$1" == "install" ]; then
+      text="Preparing dev-env..."
+      tput setaf 0 
+      tput bold
+      for (( i=0; i<10; i++ )); do
         echo -n "${text:$i:1}"
         sleep 0.05
-    done
-    tput sgr0
-    tput setaf 6 
-    tput bold
-    for (( i=12; i<15; i++ )); do
+      done
+      tput sgr0
+      tput setaf 6 
+      tput bold
+      for (( i=10; i<17; i++ )); do
         echo -n "${text:$i:1}"
         sleep 0.05
-    done
-    tput sgr0
-    for (( i=15; i<${#text}; i++ )); do
+      done
+      tput sgr0
+      for (( i=17; i<${#text}; i++ )); do
         echo -n "${text:$i:1}"
         sleep 0.05
-    done
+      done     
+    else
+      text="Preparing a Mac..."
+      tput setaf 0 
+      tput bold
+      for (( i=0; i<12; i++ )); do
+        echo -n "${text:$i:1}"
+        sleep 0.05
+      done
+      tput sgr0
+      tput setaf 6 
+      tput bold
+      for (( i=12; i<15; i++ )); do
+        echo -n "${text:$i:1}"
+        sleep 0.05
+      done
+      tput sgr0
+      for (( i=15; i<${#text}; i++ )); do
+        echo -n "${text:$i:1}"
+        sleep 0.05
+      done    
+    fi
     # Removes .zshrc from $HOME (if it exists)
     # rm -rf $HOME/.zshrc
     # Make directory /.dotfiles
     mkdir ${HOME}/.dotfiles
     chmod 755 ${HOME}/.dotfiles
     if [ "$1" == "install" ]; then
-    echo "It works!"
+    echo # empty line ;)
     # Download the script using curl
     curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/install.sh > ${HOME}/.dotfiles/install.sh
     # Make the scripts executable
