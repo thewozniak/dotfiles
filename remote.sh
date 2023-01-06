@@ -82,10 +82,11 @@ case "$WHAT_ENV" in
     # Download the script using curl
     curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/install.sh > ${HOME}/.dotfiles/install.sh
     # Make the scripts executable
-    chmod +x ${HOME}/.dotfiles/install.sh 2>/dev/null
+    chmod +x ${HOME}/.dotfiles/install.sh
     # Run the script
     ${HOME}/.dotfiles/install.sh
     else
+    echo # empty line ;)
     # Download the scripts using curl
     curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/set-defaults.sh > ${HOME}/.dotfiles/set-defaults.sh
     curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/install.sh > ${HOME}/.dotfiles/install.sh
@@ -93,8 +94,8 @@ case "$WHAT_ENV" in
     chmod +x ${HOME}/.dotfiles/set-defaults.sh
     chmod +x ${HOME}/.dotfiles/install.sh
     # Run the scripts one after the other
-    ${HOME}/.dotfiles/set-defaults.sh 2>/dev/null
-    ${HOME}/.dotfiles/install.sh 2>/dev/null      
+    ${HOME}/.dotfiles/set-defaults.sh
+    ${HOME}/.dotfiles/install.sh
     fi
     # Delete the /.dotfiles directory and all of its contents
     rm -r ${HOME}/.dotfiles
