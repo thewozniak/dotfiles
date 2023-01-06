@@ -50,7 +50,6 @@ case "$WHAT_ENV" in
         echo -n "${text:$i:1}"
         sleep 0.05
     done
-    echo -e "\r\n"
     # Removes .zshrc from $HOME (if it exists)
     # rm -rf $HOME/.zshrc
     # Make directory /.dotfiles
@@ -71,6 +70,15 @@ case "$WHAT_ENV" in
     echo # empty line
     echo -e "\n\033[32mDONE!\033[0m You're ready to fly! ;)"
     rm -f remote.sh
+    read -p "Do you want to restart the system? (y/n) " -n 1 choice
+    echo # empty
+    if [[ $choice == "y" ]]; then
+      echo "Restarting system in 3 seconds..."
+      sleep 3
+      sudo shutdown -r now
+    else
+      echo "OK, restart cancelled"
+    fi
     ;;
   "Linux")
     # dotfiles for Linux Ubuntu
