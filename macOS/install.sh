@@ -71,9 +71,6 @@ else
   exit 1
 fi
 
-# Install Mac App Store command-line interface
-brew install mas
-
 # Install OpenSSL using Homebrew
 brew list openssl || brew install openssl
 database+=("OpenSSL")
@@ -105,6 +102,7 @@ php_ini=$(php -r "phpinfo();" | grep php.ini | cut -d' ' -f5)
 # /usr/local/etc/php/7.4/php.ini
 
 # Configure PHP environment
+echo "[extensions]" | sudo tee -a $php_ini
 sed -i '/^\;\s*default_charset =\|^default_charset =/c\default_charset = "UTF-8"' $php_ini
 sed -i '/^\;\s*max_execution_time =\|^max_execution_time =/c\max_execution_time = 300' $php_ini
 sed -i '/^\;\s*max_file_uploads =\|^max_file_uploads =/c\max_file_uploads = 300' $php_ini
@@ -132,17 +130,17 @@ brew install pcre
 sudo pecl install mongodb
 
 # Add MongoDB extension to PHP
-if grep -q "^extension=mongodb.so" $php_ini; then
-  sed -i '/^extension=mongodb.so/d' $php_ini
-fi
-if grep -q "\[extensions\]" $php_ini; then
-  if grep -q "mongodb.so" $php_ini; then
-    sed -i '/^extension=mongodb.so/d' $php_ini
-  fi
-else
-  echo "[extensions]" | sudo tee -a $php_ini
-fi
-echo "extension=mongodb.so" | sudo tee -a $php_ini
+#if grep -q "^extension=mongodb.so" $php_ini; then
+#  sed -i '/^extension=mongodb.so/d' $php_ini
+#fi
+#if grep -q "\[extensions\]" $php_ini; then
+#  if grep -q "mongodb.so" $php_ini; then
+#    sed -i '/^extension=mongodb.so/d' $php_ini
+#  fi
+#else
+#  echo "[extensions]" | sudo tee -a $php_ini
+#fi
+#echo "extension=mongodb.so" | sudo tee -a $php_ini
 database+=("MongoDB PHP Driver (extension)")
 
 # Install pkgconfig using Homebrew
@@ -218,7 +216,7 @@ sudo chmod 755 $brew_path/etc/nginx/ssl/
 echo "127.0.0.1       dev.mac" | sudo tee -a /etc/hosts
 
 # Create the index.html file in the user's home directory
-echo "<!DOCTYPE html><html><head><title>Welcome to nginx!</title><style>html { color-scheme: light dark; } body { width: 35em; margin: 0 auto; font-family: Tahoma, Verdana, Arial, sans-serif; } p.dev{ margin-left:18px; }</style></head><body><h1>Welcome to nginx!</h1><p>If you see this page, the nginx web server is successfully installed and working. Further configuration is required.</p><p>For online documentation and support please refer to <a href='http://nginx.org/'>nginx.org</a>.<br/>Commercial support is available at <a href='http://nginx.com/'>nginx.com</a>.</p><p class='dev'>The addresses of the development environment are:<br /><strong><em>http://localhost</strong> and <strong>http://dev.mac</em></strong><br />and both are running on port 80</p><p class='dev'>The directory with the files for the home page is: ${HOME}/Sites<br/>Click <a href='php-info.php'>here</a> to view phpinfo() configuration.</p><p><em>Thank you for using nginx</em></p><p><em>&copy; 2022 - <a href='https://woz.ooo'>woz.ooo</a></em></p></body></html>" > ${HOME}/Sites/index.html
+echo "<!DOCTYPE html><html><head><title>Welcome to nginx!</title><style>html { color-scheme: light dark; } body { width: 35em; margin: 0 auto; font-family: Tahoma, Verdana, Arial, sans-serif; } p.dev{ margin-left:18px; }</style></head><body><h1>Welcome to nginx!</h1><p>If you see this page, the nginx web server is successfully installed and working. Further configuration is required.</p><p>For online documentation and support please refer to <a href='http://nginx.org/'>nginx.org</a>.<br/>Commercial support is available at <a href='http://nginx.com/'>nginx.com</a>.</p><p class='dev'>The addresses of the development environment are:<br /><strong><em>http(s)://localhost</strong> and <strong>http(s)://dev.mac</em></strong><br />and both are running on ports 80, 443</p><p class='dev'>The directory with the files for the home page is: ${HOME}/Sites<br/>Click <a href='php-info.php'>here</a> to view phpinfo() configuration.</p><p><em>Thank you for using nginx</em></p><p><em>&copy; 2022 - <a href='https://woz.ooo'>woz.ooo</a></em></p></body></html>" > ${HOME}/Sites/index.html
 sudo chmod -R 644 ${HOME}/Sites/index.html
 
 # Create the PHP Info file in the user's home directory
@@ -235,6 +233,9 @@ nginxssl dev.mac
 # Reload nginx service as a root
 sudo nginx -s reload
 database+=("Nginx Web Server")
+
+# Install Mac App Store command-line interface
+brew install mas
 
 # Install Karabiner-elements
 brew install --cask karabiner-elements
@@ -302,7 +303,7 @@ curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/.zshrc -o 
 echo "\033[1mThe following packages and libraries have been installed:\033[0m"
 for item in "${database[@]}"
 do
-echo -e "- $item"
+echo "- $item"
 done
 
 echo "\n\033[32mDONE!\033[0m \033[1mDevelopment Enviroment\033[0m is ready to code!"
