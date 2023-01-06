@@ -239,25 +239,28 @@ nginxssl dev.mac
 sudo nginx -s reload
 database+=("Nginx Web Server")
 
-# Install Mac App Store command-line interface
-brew install mas
-
-# Install Karabiner-elements
-brew install --cask karabiner-elements
-curl https://woz.ooo/dl/dotfiles/macOS/karabiner.json -o /Users/${USER}/.config/karabiner/karabiner.json
-
-# Install VS Code
-brew install --cask visual-studio-code
-
-# Install NoSQLBooster for MongoDB
-brew install --cask nosqlbooster-for-mongodb
-
-# Install Realm Studio
-brew install --cask mongodb-realm-studio
+echo # another empty line ;)
+read -p "Do you want to install essential apps? [y/n] " answer
+if [ "$answer" != "${answer#[Yy]}" ]; then
+ # Install Mac App Store command-line interface
+ brew install mas
+ # Install Karabiner-elements
+ brew install --cask karabiner-elements
+ curl https://woz.ooo/dl/dotfiles/macOS/karabiner.json -o /Users/${USER}/.config/karabiner/karabiner.json
+ # Install VS Code
+ brew install --cask visual-studio-code
+ # Install Panic Nova
+ brew install --cask nova
+ # Install NoSQLBooster for MongoDB
+ brew install --cask nosqlbooster-for-mongodb
+ # Install Realm Studio
+ brew install --cask mongodb-realm-studio
+ # Install Little Snitch
+ brew install --cask little-snitch
+fi
 
 # Initialize a variable to control the loop
 install_more_packages=true
-
 
 # Start the loop
 while [ $install_more_packages == true ]
