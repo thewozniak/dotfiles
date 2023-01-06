@@ -52,7 +52,7 @@ Don't worry! Once the process is complete, all files will be cleaned up.
 To setup dev-env only, run this:
 
 ```sh
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/install.sh)"
+bash <(curl -fsSL https://raw.githubusercontent.com/thewozniak/dotfiles/main/remote.sh) install
 ```
 
 <br />
