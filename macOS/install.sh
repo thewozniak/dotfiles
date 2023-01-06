@@ -1,5 +1,7 @@
 #!/bin/sh
 
+source ${HOME}/.dotfiles/nginxssl.sh
+
 # Ask the user if they want to prepare the development environment
 echo # just an empty line ;)
 read -p "Do you want to prepare the development environment? [y/n] " answer
