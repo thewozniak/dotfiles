@@ -70,6 +70,7 @@ case "$WHAT_ENV" in
     rm -r ${HOME}/.dotfiles
     echo # empty line
     echo -e "\n\033[32mDONE!\033[0m You're ready to fly! ;)"
+    rm -f remote.sh
     ;;
   "Linux")
     # dotfiles for Linux Ubuntu
