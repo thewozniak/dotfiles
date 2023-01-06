@@ -20,9 +20,13 @@ It helps me and speeds up system configurations, to my preferred settings. In ad
 - OAuth consumer extension
 - Redis PHP extension
 - mailparse PHP extension
-- msgpack PHP extension
 - imagick (ImageMagick)
 - pkg-config (helper tool)
+
+
+
+
+During the installation process, you can install additional libraries available in the homebrew repository. The installer will ask you if you want to install essential apps such as:
 + Karabiner-elements
 + Visual Studio Code (VSCode)
 + NoSQLBooster for MongoDB
@@ -30,9 +34,6 @@ It helps me and speeds up system configurations, to my preferred settings. In ad
 + Panic Nova
 + Little Snitch
 
-
-
-During the installation process, you can install additional libraries available in the homebrew repository.
 <br /><br />
 
 ## Install
