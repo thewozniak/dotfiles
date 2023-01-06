@@ -324,7 +324,7 @@ done
 rm -rf ${HOME}/.zshrc
 curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/.zshrc -o ~/.zshrc
 # Run .zshrc
-bash ~/.zshrc
+. ~/.zshrc
 # Create and add SSL certificates for hosts
 nginxssl localhost
 nginxssl dev.mac
