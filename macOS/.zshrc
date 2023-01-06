@@ -274,8 +274,7 @@ else
     # Ask for the administrator password upfront
     sudo -v  
     wget https://woz.ooo/dl/dotfiles/macOS/nginx-server-template.conf -O /usr/local/etc/nginx/servers/$1.conf
-    sed -i '' "s:{{host}}:$1:" /usr/local/etc/nginx/servers/$1.conf
-    sed  -i '' "s:{{root}}:${HOME}/Sites/$1:" /usr/local/etc/nginx/servers/$1.conf
+    perl -i -pe "s:{{host}}:$1:; s:{{root}}:${HOME}/Sites/$1:" /usr/local/etc/nginx/servers/$1.conf
     mkdir ${HOME}/Sites/$1
     sudo chmod -R 775 ${HOME}/Sites/$1
     openssl req \
