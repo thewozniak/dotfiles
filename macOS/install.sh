@@ -15,10 +15,22 @@ sudo -v
 # Keep-alive: update existing `sudo` time stamp until code is finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-# Download temp .zshrc .zshrc file to your home directory
-rm -rf ${HOME}/.zshrc
-curl https://gist.githubusercontent.com/thewozniak/9802668130401fc22bcf87ef79642e41/raw/6ee167663d6c6b8dcf3f8a9bc69fb16dea3f9873/.zshrc -o ~/.zshrc
-. ~/.zshrc
+function nginxssl() {
+    # Ask for the administrator password upfront
+    wget https://woz.ooo/dl/dotfiles/macOS/nginx-server-template.conf -O /usr/local/etc/nginx/servers/$1.conf
+    perl -i -pe "s:{{host}}:$1:; s:{{root}}:${HOME}/Sites/$1:" /usr/local/etc/nginx/servers/$1.conf
+    mkdir ${HOME}/Sites/$1
+    sudo chmod -R 775 ${HOME}/Sites/$1
+    openssl req \
+        -x509 -sha256 -nodes -newkey rsa:2048 -days 3650 \
+        -subj "/CN=$1" \
+        -reqexts SAN \
+        -extensions SAN \
+        -config <(cat /System/Library/OpenSSL/openssl.cnf; printf "[SAN]\nsubjectAltName=DNS:$1") \
+        -keyout /usr/local/etc/nginx/ssl/$1.key \
+        -out /usr/local/etc/nginx/ssl/$1.crt
+    sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain /usr/local/etc/nginx/ssl/$1.crt  
+}
 
 # Create an empty array named 'database' to add information about installed packages
 database=()
@@ -292,7 +304,7 @@ done
 # Download the .zshrc file to your home directory
 rm -rf ${HOME}/.zshrc
 curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/.zshrc -o ~/.zshrc
-
+echo # empty line ;)
 echo "\033[1mThe following packages and libraries have been installed:\033[0m"
 for item in "${database[@]}"
 do
