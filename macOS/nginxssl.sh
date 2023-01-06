@@ -1,6 +1,4 @@
-#!/bin/sh
-
-echo "mamas, papas, dupas, bladas"
+#!/bin/bash
 
 function nginxssl() {
 sudo -v  
