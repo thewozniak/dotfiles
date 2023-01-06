@@ -24,8 +24,6 @@ It helps me and speeds up system configurations, to my preferred settings. In ad
 - pkg-config (helper tool)
 
 
-
-
 During the installation process, you can install additional libraries available in the homebrew repository. The installer will ask you if you want to install essential apps such as:
 + Karabiner-elements
 + Visual Studio Code (VSCode)
@@ -33,28 +31,38 @@ During the installation process, you can install additional libraries available 
 + Realm Studio
 + Panic Nova
 + Little Snitch
++ UTM
 
-<br /><br />
+as well as utility applications from the Mac App Store:
+- 1Password 7
+- Twitter
+- Commander One Pro
+- HTTPBot
+- Spark Mail
+- 1Blocker
+- HEIC Converter
+
+<br />
 
 ## Install
 
-To setup a mac with dev-env, run this:
+To <strong>setup a Mac</strong> with dev-env, run this:
 
 ```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/thewozniak/dotfiles/main/remote.sh)"
 ```
 
-This will download and run the appropriate files in `.dotfiles` to your $HOME directory.
-
-Don't worry! Once the process is complete, all files will be cleaned up.
-
 <br />
 
-To setup dev-env only, run this:
+To setup <strong>dev-env only</strong>, run this:
 
 ```sh
 bash <(curl -fsSL https://raw.githubusercontent.com/thewozniak/dotfiles/main/remote.sh) install
 ```
+<br />
+This will download and run the appropriate files in `.dotfiles` to your $HOME directory.
+
+Don't worry! Once the process is complete, all files will be cleaned up.
 
 <br />
 
