@@ -236,6 +236,43 @@ if [ "$answer" != "${answer#[Yy]}" ]; then
  brew install --cask mongodb-realm-studio
  # Install Little Snitch
  brew install --cask little-snitch
+ # Install UTM (Virtual machines UI using QEMU)
+ brew install --cask utm
+ echo # another empty line ;)
+ read -p "Do you want to install 1Password 7? [y/n] " onepass
+ if [ "$onepass" != "${answer#[Yy]}" ]; then
+ mas install 1333542190
+ fi
+ echo # another empty line ;)
+ read -p "Do you want to install Twitter? [y/n] " twitter
+ if [ "$twitter" != "${answer#[Yy]}" ]; then
+ mas install 333903271
+ fi
+ echo # another empty line ;)
+ read -p "Do you want to install Commander One Pro? [y/n] " commander
+ if [ "$commander" != "${answer#[Yy]}" ]; then
+ mas install 1035237815
+ fi
+ echo # another empty line ;)
+ read -p "Do you want to install HTTPBot? [y/n] " httpbot
+ if [ "$httpbot" != "${answer#[Yy]}" ]; then
+ mas install 1232603544
+ fi
+ echo # another empty line ;)
+ read -p "Do you want to install Spark Mail? [y/n] " spark
+ if [ "$spark" != "${answer#[Yy]}" ]; then
+ mas install 997102246
+ fi
+ echo # another empty line ;)
+ read -p "Do you want to install 1Blocker? [y/n] " oneblock
+ if [ "$oneblock" != "${answer#[Yy]}" ]; then
+ mas install 1365531024
+ fi
+ echo # another empty line ;)
+ read -p "Do you want to install HEIC Converter? [y/n] " heic
+ if [ "$heic" != "${answer#[Yy]}" ]; then
+ mas install 1294126402
+ fi
 fi
 
 # Initialize a variable to control the loop
