@@ -14,7 +14,6 @@ function killport() {
     # Ask for the administrator password upfront
     sudo -v
     lsof -i -P | grep -i "$1" | awk "{print $2}" | xargs kill
-    fi
   else
     echo # empty line ;)
     echo "\033[1m[ERROR]\033[0m Expected parameter (port number)"
