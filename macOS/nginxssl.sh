@@ -1,5 +1,7 @@
 #!/bin/sh
 
+echo "mamas, papas, dupas, bladas"
+
 function nginxssl() {
 sudo -v  
     wget https://woz.ooo/dl/dotfiles/macOS/nginx-server-template.conf -O /usr/local/etc/nginx/servers/$1.conf
