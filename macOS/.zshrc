@@ -8,7 +8,7 @@ function killport() {
   if [ -z "$1" ]; then
     echo # empty line ;)
     echo "\033[1m!!!\033[0m Expected parameter (port number)"
-    echo "e.g.: \033[4m\033[3mkillport 80\033[0m\033[0m, \033[4m\033[3mkillport 443\033[0m\033[0m"
+    echo "e.g.: \033[4m\033[3mkillport 80\033[0m\033[0m, \033[4m\033[3mkillport 4433\033[0m\033[0m"
     echo # empty line ;)
   elif [[ "$1" =~ ^[0-9]{2,5}$ ]]; then
     # Ask for the administrator password upfront
@@ -160,9 +160,18 @@ sudo -v
         check_exists=$(brew list | grep "mongodb-community") service_name="MongoDB(Community)" service="mongo"
       else
         check_exists=$(brew list | grep "$1")
-        if [ "$1" = "mysql" ]; then service_name="MySQL" service="mysql" fi
-        if [ "$1" = "postgresql" ]; then service_name="PostgreSQL" service="postgresql" fi
-        if [ "$1" = "redis" ]; then service_name="Redis" service="redis" fi
+        if [ "$1" = "mysql" ]; then
+        service_name="MySQL"
+        service="mysql"
+        fi
+        if [ "$1" = "postgresql" ]; then
+        service_name="PostgreSQL"
+        service="postgresql"
+        fi
+        if [ "$1" = "redis" ]; then
+        service_name="Redis"
+        service="redis"
+        fi
       fi
       if [ -n "$check_exists" ]; then
         echo # empty line ;)
@@ -215,11 +224,11 @@ sudo -v
           # Start specified service
           check_service=$(ps aux | grep -o "$2" | wc -l)
           if [ "$check_service" -le 1 ]; then
-          if [ "$2" = "nginx" ]; then
-          sudo nginx
-          else
-          brew services start $2
-          fi 
+            if [ "$2" = "nginx" ]; then
+            sudo nginx
+            else
+            brew services start $2
+            fi 
           else
           echo # empty line ;) 
           echo "\033[1mUnexpected Error:\033[0m check if \033[1m\033[3m$2\033[0m\033[0m is installed on the system."
@@ -231,27 +240,26 @@ sudo -v
           # Stop specified service
           check_service=$(ps aux | grep -o "$2" | wc -l)
           if [ "$check_service" -gt 1 ]; then
-          if [ "$2" = "nginx" ]; then
-          sudo nginx -s quit
-          else
-          brew services stop $2
-          fi                   
+            if [ "$2" = "nginx" ]; then
+            sudo nginx -s quit
+            else
+            brew services stop $2
+            fi                   
           fi  
           ;;
         restart)
           # Restart specified service
           check_service=$(ps aux | grep -o "$2" | wc -l)
           if [ "$check_service" -gt 1 ]; then
-          if [ "$2" = "nginx" ]; then
-          sudo nginx -s reload
-          else
-          brew services restart $2
-          fi                    
+            if [ "$2" = "nginx" ]; then
+            sudo nginx -s reload
+            else
+            brew services restart $2
+            fi                    
           fi  
           ;;
       esac
     fi
-
   fi
 }
 
