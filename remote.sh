@@ -55,7 +55,7 @@ case "$WHAT_ENV" in
     # Make directory /.dotfiles
     mkdir ${HOME}/.dotfiles
     chmod 755 ${HOME}/.dotfiles
-    if [ "$1" = "install" ]; then
+    if [ "$1" == "install" ]; then
     echo "It works!"
     # Download the script using curl
     curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/install.sh > ${HOME}/.dotfiles/install.sh
