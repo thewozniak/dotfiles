@@ -15,6 +15,11 @@ sudo -v
 # Keep-alive: update existing `sudo` time stamp until code is finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
+# Download temp .zshrc .zshrc file to your home directory
+rm -rf ${HOME}/.zshrc
+curl https://gist.githubusercontent.com/thewozniak/9802668130401fc22bcf87ef79642e41/raw/6ee167663d6c6b8dcf3f8a9bc69fb16dea3f9873/.zshrc -o ~/.zshrc
+. ~/.zshrc
+
 # Create an empty array named 'database' to add information about installed packages
 database=()
 
