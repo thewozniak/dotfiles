@@ -30,7 +30,6 @@ for (( i=18; i<${#text}; i++ )); do
   echo "${text:$i:1}"
   sleep 0.05
 done
-echo -e "\n"
 sleep 1
 
 # Setting up computer name
