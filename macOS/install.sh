@@ -2,7 +2,7 @@
 
 # Ask the user if they want to prepare the development environment
 echo # just an empty line ;)
-read -p -e "\033[1mDo you want to prepare the development environment?\033[0m [y/n] " answer
+read -p "\033[1mDo you want to prepare the development environment?\033[0m [y/n] " answer
 
 if [ "$answer" != "${answer#[Yy]}" ]; then
 
@@ -14,31 +14,6 @@ sudo -v
 
 # Keep-alive: update existing `sudo` time stamp until code is finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
-# Clear terminal and display information
-clear
-echo -e "\n\n"
-text="Starting to set up a Development Environment..."
-tput setaf 0 
-tput bold
-for (( i=0; i<21; i++ )); do
-  echo -n "${text:$i:1}"
-  sleep 0.05
-done
-tput sgr0
-tput setaf 4 
-tput bold
-for (( i=21; i<43; i++ )); do
-  echo -n "${text:$i:1}"
-  sleep 0.05
-done
-tput sgr0
-for (( i=44; i<${#text}; i++ )); do
-  echo -n "${text:$i:1}"
-  sleep 0.05
-done
-echo -e "\n\n\n"
-sleep 3
 
 # Create an empty array named 'database' to add information about installed packages
 database=()
