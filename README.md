@@ -27,6 +27,8 @@ It helps me and speeds up system configurations, to my preferred settings. In ad
 + Visual Studio Code (VSCode)
 + NoSQLBooster for MongoDB
 + Realm Studio
++ Panic Nova
++ Little Snitch
 
 
 
