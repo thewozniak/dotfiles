@@ -79,6 +79,7 @@ case "$WHAT_ENV" in
     mkdir ${HOME}/.dotfiles
     chmod 755 ${HOME}/.dotfiles
     if [ "$1" == "install" ]; then
+    echo # empty
     # Download the script using curl
     curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/install.sh > ${HOME}/.dotfiles/install.sh
     # Make the scripts executable
@@ -86,6 +87,7 @@ case "$WHAT_ENV" in
     # Run the script
     ${HOME}/.dotfiles/install.sh
     else
+    echo # empty
     # Download the scripts using curl
     curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/set-defaults.sh > ${HOME}/.dotfiles/set-defaults.sh
     curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/install.sh > ${HOME}/.dotfiles/install.sh
