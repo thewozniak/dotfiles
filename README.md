@@ -37,7 +37,7 @@ During the installation process, you can install additional libraries available 
 
 ## Install
 
-To setup a mac and dev-env, run this:
+To setup a mac with dev-env, run this:
 
 ```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/thewozniak/dotfiles/main/remote.sh)"
@@ -47,13 +47,15 @@ This will download and run the appropriate files in `.dotfiles` to your $HOME di
 
 Don't worry! Once the process is complete, all files will be cleaned up.
 
-
+<br />
 
 To setup dev-env only, run this:
 
 ```sh
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/thewozniak/dotfiles/main/remote.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/install.sh)"
 ```
+
+<br />
 
 After the installation is complete, <strong>PHP</strong> and <strong>Nginx</strong> are running because they were started during the installation process.
 
