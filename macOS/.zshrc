@@ -8,7 +8,7 @@ function killport() {
   if [ -z "$1" ]; then
     echo # empty line ;)
     echo "\033[1m!!!\033[0m Expected parameter (port number)"
-    echo "e.g.: \033[4m\033[3mkillport 80\033[0m\033[0m, \033[4m\033[3mkillport 4433\033[0m\033[0m"
+    echo "e.g.: \033[4m\033[3mkillport 80\033[0m\033[0m, \033[4m\033[3mkillport 443\033[0m\033[0m"
     echo # empty line ;)
   elif [[ "$1" =~ ^[0-9]{2,5}$ ]]; then
     # Ask for the administrator password upfront
