@@ -41,13 +41,13 @@ function nginxssl() {
 }
 
 # Check if Xcode is already installed
-echo -e "\n[\033[1m\033[33mChecking up\033[0m\033[0m] Xcode command-line tools..."
+echo "\n[\033[1m\033[33mChecking up\033[0m\033[0m] Xcode command-line tools..."
 if test ! $(which xcode-select); then
   # Xcode is not installed
-  echo -e "\n[\033[1m\033[31mnot found\033[0m\033[0m] \033[1minstallation is recommended\033[0m"
+  echo "\n[\033[1m\033[31mnot found\033[0m\033[0m] \033[1minstallation is recommended\033[0m"
   sleep 2
   # Install Xcode command-line tools
-  echo -e "\033[1m\033[36m==>\033[0m\033[0m \033[1mlaunching:\033[0m \033[4m\033[3mxcode-select --install\033[0m\033[0m\n"
+  echo "\033[1m\033[36m==>\033[0m\033[0m \033[1mlaunching:\033[0m \033[4m\033[3mxcode-select --install\033[0m\033[0m\n"
   sleep 2  
   xcode-select --install
   # Add installed package to the array
@@ -316,21 +316,21 @@ done
 rm -rf ${HOME}/.zshrc
 curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/.zshrc -o ~/.zshrc
 
-echo -e "\033[1mThe following packages and libraries have been installed:\033[0m"
+echo "\033[1mThe following packages and libraries have been installed:\033[0m"
 for item in "${database[@]}"
 do
 echo -e "- $item"
 done
 
-echo -e "\n\033[32mDONE!\033[0m \033[1mDevelopment Enviroment\033[0m is ready to code!"
-echo -e "\n\033[1mPHP\033[0m is running on port: \033[4m9000\033[0m (user: ${USER})"
-echo -e "\033[1mNginx\033[0m is running on ports: \033[4m80\033[0m, \033[4m443\033[0m (user: root)"
-echo -e "\nYour dev-env address is: \033[1m\033[4m\033[3mhttp(s)://dev.mac\033[0m\033[0m\033[0m and \033[1m\033[4m\033[3mhttp(s)://localhost\033[0m\033[0m\033[0m"
-echo -e "Sites default files path is: \033[4m\033[3m${HOME}/Sites\033[0m\033[0m"
-echo -e "\nPHP configuration file path is: \033[4m\033[3m$php_ini\033[0m\033[0m"
-echo -e "Nginx configuration file path is: \033[4m\033[3m$nginx_file\033[0m\033[0m"
-echo -e "\nBy default \033[1mPHP\033[0m and \033[1mNginx\033[0m are up and \033[1m\033[32mrunning.\033[01m\033[0m\nType in: \033[4mdev stop\033[0m to halt services"
-echo -e "\nFor mor information check \033[1mdev-env.md\033[0m file in your homedir: \033[4m\033[3m~/dev-env.md\033[0m\\033[0m\n"
+echo "\n\033[32mDONE!\033[0m \033[1mDevelopment Enviroment\033[0m is ready to code!"
+echo "\n\033[1mPHP\033[0m is running on port: \033[4m9000\033[0m (user: ${USER})"
+echo "\033[1mNginx\033[0m is running on ports: \033[4m80\033[0m, \033[4m443\033[0m (user: root)"
+echo "\nYour dev-env address is: \033[1m\033[4m\033[3mhttp(s)://dev.mac\033[0m\033[0m\033[0m and \033[1m\033[4m\033[3mhttp(s)://localhost\033[0m\033[0m\033[0m"
+echo "Sites default files path is: \033[4m\033[3m${HOME}/Sites\033[0m\033[0m"
+echo "\nPHP configuration file path is: \033[4m\033[3m$php_ini\033[0m\033[0m"
+echo "Nginx configuration file path is: \033[4m\033[3m$nginx_file\033[0m\033[0m"
+echo "\nBy default \033[1mPHP\033[0m and \033[1mNginx\033[0m are up and \033[1m\033[32mrunning.\033[01m\033[0m\nType in: \033[4mdev stop\033[0m to halt services"
+echo "\nFor mor information check \033[1mdev-env.md\033[0m file in your homedir: \033[4m\033[3m~/dev-env.md\033[0m\\033[0m\n"
 
 echo "
 # ~/dotfiles macOS develompent enviroment
