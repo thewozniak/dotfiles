@@ -100,15 +100,17 @@ case "$WHAT_ENV" in
     rm -r ${HOME}/.dotfiles
     echo # empty line
     echo -e "\n\033[32mDONE!\033[0m You're ready to fly! ;)"
-    rm -f remote.sh
-    read -p "Do you want to restart the system? (y/n) " -n 1 choice
-    echo # empty
-    if [[ $choice == "y" ]]; then
-      echo "Restarting system in 3 seconds..."
-      sleep 3
-      sudo shutdown -r now
-    else
-      echo "OK, restart cancelled"
+    rm -f remote.sh  
+    if [ -z "$1" ]; then
+      read -p "Do you want to restart the system? (y/n) " -n 1 choice
+      echo # empty
+      if [[ $choice == "y" ]]; then
+        echo "Restarting system in 3 seconds..."
+        sleep 3
+        sudo shutdown -r now
+      else
+        echo "OK, restart cancelled"
+      fi
     fi
     ;;
   "Linux")
