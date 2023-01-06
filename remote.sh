@@ -72,13 +72,13 @@ case "$WHAT_ENV" in
         sleep 0.05
       done    
     fi
+    echo -e "\n"
     # Removes .zshrc from $HOME (if it exists)
     # rm -rf $HOME/.zshrc
     # Make directory /.dotfiles
     mkdir ${HOME}/.dotfiles
     chmod 755 ${HOME}/.dotfiles
     if [ "$1" == "install" ]; then
-    echo # empty line ;)
     # Download the script using curl
     curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/install.sh > ${HOME}/.dotfiles/install.sh
     # Make the scripts executable
@@ -86,7 +86,6 @@ case "$WHAT_ENV" in
     # Run the script
     ${HOME}/.dotfiles/install.sh
     else
-    echo # empty line ;)
     # Download the scripts using curl
     curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/set-defaults.sh > ${HOME}/.dotfiles/set-defaults.sh
     curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/install.sh > ${HOME}/.dotfiles/install.sh
