@@ -176,7 +176,7 @@ curl https://woz.ooo/dl/dotfiles/macOS/nginx-template.conf -o $nginx_file
 # Edit the Nginx configuration file and update the "user" and "root" directive
 mkdir ${HOME}/Sites
 sudo chmod -R 775 ${HOME}/Sites
-perl -i -pe "s:{{user}}:${USER}:; s:{{root}}:${HOME}/Sites:" $conf_file
+perl -i -pe "s:{{user}}:${USER}:; s:{{root}}:${HOME}/Sites:" $nginx_file
 #sed -i '' "s:{{user}}:${USER}:" $conf_file
 #sed -i '' "s:{{root}}:${HOME}/Sites:" $conf_file
 
