@@ -1,6 +1,7 @@
 #!/bin/sh
 
-source ${HOME}/.dotfiles/nginxssl.sh
+echo "XXX"
+bash ${HOME}/.dotfiles/nginxssl.sh
 
 # Ask the user if they want to prepare the development environment
 echo # just an empty line ;)
