@@ -40,7 +40,7 @@ case "$WHAT_ENV" in
         sleep 0.05
       done
       tput sgr0
-      tput setaf 6 
+      tput setaf 5 
       tput bold
       for (( i=10; i<17; i++ )); do
         echo -n "${text:$i:1}"
