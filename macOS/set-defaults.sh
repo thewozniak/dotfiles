@@ -4,6 +4,7 @@
 osascript -e 'tell application "System Preferences" to quit'
 
 # Ask for the administrator password upfront
+echo # empty
 sudo -v
 
 # Keep-alive: update existing `sudo` time stamp until `set-default.sh` has finished
