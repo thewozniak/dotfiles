@@ -9,29 +9,6 @@ sudo -v
 # Keep-alive: update existing `sudo` time stamp until `set-default.sh` has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-# Clear terminal and display information
-clear
-text="Setting up you Mac..."
-tput setaf 0 
-tput bold
-for (( i=0; i<15; i++ )); do
-  echo "${text:$i:1}"
-  sleep 0.05
-done
-tput sgr0
-tput setaf 6 
-tput bold
-for (( i=15; i<18; i++ )); do
-  echo "${text:$i:1}"
-  sleep 0.05
-done
-tput sgr0
-for (( i=18; i<${#text}; i++ )); do
-  echo "${text:$i:1}"
-  sleep 0.05
-done
-sleep 1
-
 # Setting up computer name
 computer_name=$(system_profiler SPHardwareDataType | awk '/Model Name/ {print $3$4}')
 # Check if the computer name is Macmini, MacBookPro, MacStudio or MacPro
