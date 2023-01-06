@@ -11,7 +11,6 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Clear terminal and display information
 clear
-echo -e "\n\n"
 text="Setting up you Mac..."
 tput setaf 0 
 tput bold
@@ -23,12 +22,12 @@ tput sgr0
 tput setaf 6 
 tput bold
 for (( i=15; i<18; i++ )); do
-  echo -n "${text:$i:1}"
+  echo "${text:$i:1}"
   sleep 0.05
 done
 tput sgr0
 for (( i=18; i<${#text}; i++ )); do
-  echo -n "${text:$i:1}"
+  echo "${text:$i:1}"
   sleep 0.05
 done
 echo -e "\n"
