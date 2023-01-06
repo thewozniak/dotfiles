@@ -27,6 +27,7 @@ case "$computer_name" in
     ;;             
 esac
 
+echo # empty line
 echo "[\033[1m\033[34mSetting up\033[0m\033[0m] computer name: \033[1m$computer_name\033[0m"
 sudo scutil --set ComputerName "$computer_name"
 
