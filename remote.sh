@@ -99,7 +99,7 @@ case "$WHAT_ENV" in
     chmod +x ${HOME}/.dotfiles/set-defaults.sh
     chmod +x ${HOME}/.dotfiles/install.sh
     # Run the scripts one after the other
-    #${HOME}/.dotfiles/set-defaults.sh
+    ${HOME}/.dotfiles/set-defaults.sh
     ${HOME}/.dotfiles/install.sh
     fi
     # Delete the /.dotfiles directory and all of its contents
