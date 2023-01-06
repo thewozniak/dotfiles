@@ -55,7 +55,14 @@ case "$WHAT_ENV" in
     # Make directory /.dotfiles
     mkdir ${HOME}/.dotfiles
     chmod 755 ${HOME}/.dotfiles
-    # Download and run the files
+    if [ "$1" = "install" ]; then
+    # Download the script using curl
+    curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/install.sh > ${HOME}/.dotfiles/install.sh
+    # Make the scripts executable
+    chmod +x ${HOME}/.dotfiles/install.sh
+    # Run the script
+    ${HOME}/.dotfiles/install.sh
+    else
     # Download the scripts using curl
     curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/set-defaults.sh > ${HOME}/.dotfiles/set-defaults.sh
     curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/install.sh > ${HOME}/.dotfiles/install.sh
@@ -64,7 +71,8 @@ case "$WHAT_ENV" in
     chmod +x ${HOME}/.dotfiles/install.sh
     # Run the scripts one after the other
     ${HOME}/.dotfiles/set-defaults.sh
-    ${HOME}/.dotfiles/install.sh    
+    ${HOME}/.dotfiles/install.sh       
+    fi
     # Delete the /.dotfiles directory and all of its contents
     rm -r ${HOME}/.dotfiles
     echo # empty line
