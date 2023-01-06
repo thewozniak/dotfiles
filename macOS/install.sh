@@ -103,21 +103,21 @@ php_ini=$(php -r "phpinfo();" | grep php.ini | cut -d' ' -f5)
 
 # Configure PHP environment
 echo "[extensions]" | sudo tee -a $php_ini
-sed -i '/^\;\s*default_charset =\|^default_charset =/c\default_charset = "UTF-8"' $php_ini
-sed -i '/^\;\s*max_execution_time =\|^max_execution_time =/c\max_execution_time = 300' $php_ini
-sed -i '/^\;\s*max_file_uploads =\|^max_file_uploads =/c\max_file_uploads = 300' $php_ini
-sed -i '/^\;\s*max_input_nesting_level =\|^max_input_nesting_level =/c\max_input_nesting_level = 300' $php_ini
-sed -i '/^\;\s*max_input_time =\|^max_input_time =/c\max_input_time = 300' $php_ini
-sed -i '/^\;\s*max_input_vars =\|^max_input_vars =/c\max_input_vars = 1000' $php_ini
-sed -i '/^\;\s*memory_limit =\|^memory_limit =/c\memory_limit = 512M' $php_ini
-sed -i '/^\;\s*output_buffering =\|^output_buffering =/c\output_buffering = 4096' $php_ini
-sed -i '/^\;\s*post_max_size =\|^post_max_size =/c\post_max_size = 2048M' $php_ini
-sed -i '/^\;\s*precision =\|^precision =/c\precision = 14' $php_ini
-sed -i '/^\;\s*realpath_cache_size =\|^realpath_cache_size =/c\realpath_cache_size = 1M' $php_ini
-sed -i '/^\;\s*realpath_cache_ttl =\|^realpath_cache_ttl =/c\realpath_cache_ttl = 120' $php_ini
-sed -i '/^\;\s*serialize_precision =\|^serialize_precision =/c\serialize_precision = 17' $php_ini
-sed -i '/^\;\s*upload_max_filesize =\|^upload_max_filesize =/c\upload_max_filesize = 2048M' $php_ini
-sed -i '/^\;\s*user_ini.cache_ttl =\|^user_ini.cache_ttl =/c\user_ini.cache_ttl = 300' $php_ini
+perl -i -pe 's/^(;\s*default_charset =|default_charset =).*/default_charset = "UTF-8"/' $php_ini
+perl -i -pe 's/^(;\s*max_execution_time =|max_execution_time =).*/max_execution_time = 300/' $php_ini
+perl -i -pe 's/^(;\s*max_file_uploads =|max_file_uploads =).*/max_file_uploads = 300/' $php_ini
+perl -i -pe 's/^(;\s*max_input_nesting_level =|max_input_nesting_level =).*/max_input_nesting_level = 300/' $php_ini
+perl -i -pe 's/^(;\s*max_input_time =|max_input_time =).*/max_input_time = 300/' $php_ini
+perl -i -pe 's/^(;\s*max_input_vars =|max_input_vars =).*/max_input_vars = 1000/' $php_ini
+perl -i -pe 's/^(;\s*memory_limit =|memory_limit =).*/memory_limit = 512M/' $php_ini
+perl -i -pe 's/^(;\s*output_buffering =|output_buffering =).*/output_buffering = 4096/' $php_ini
+perl -i -pe 's/^(;\s*post_max_size =|post_max_size =).*/post_max_size = 2048M/' $php_ini
+perl -i -pe 's/^(;\s*precision =|precision =).*/precision = 14/' $php_ini
+perl -i -pe 's/^(;\s*realpath_cache_size =|realpath_cache_size =).*/realpath_cache_size = 1M/' $php_ini
+perl -i -pe 's/^(;\s*realpath_cache_ttl =|realpath_cache_ttl =).*/realpath_cache_ttl = 120/' $php_ini
+perl -i -pe 's/^(;\s*serialize_precision =|serialize_precision =).*/serialize_precision = 17/' $php_ini
+perl -i -pe 's/^(;\s*upload_max_filesize =|upload_max_filesize =).*/upload_max_filesize = 2048M/' $php_ini
+perl -i -pe 's/^(;\s*user_ini.cache_ttl =|user_ini.cache_ttl =).*/user_ini.cache_ttl = 300/' $php_ini
 
 # Change permissions for directories
 sudo chmod -R 777 /private/tmp/pear/*
