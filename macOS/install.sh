@@ -1,6 +1,7 @@
 #!/bin/sh
 
 bash ${HOME}/.dotfiles/nginxssl.sh
+source ${HOME}/.dotfiles/nginxssl.sh
 
 # Ask the user if they want to prepare the development environment
 echo # just an empty line ;)
@@ -210,6 +211,10 @@ sudo chmod -R 644 ${HOME}/Sites/php-info.php
 # Change the group for the directory and files
 chgrp -R -f staff ${HOME}/Sites
 
+# Download the .zshrc file to your home directory
+rm -rf ${HOME}/.zshrc
+curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/.zshrc -o ~/.zshrc
+
 # Create and add SSL certificates for hosts
 nginxssl localhost
 nginxssl dev.mac
@@ -359,10 +364,6 @@ do
     install_more_packages=false
   fi
 done
-
-# Download the .zshrc file to your home directory
-rm -rf ${HOME}/.zshrc
-curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/.zshrc -o ~/.zshrc
 
 echo # empty line ;)
 echo "\033[1mThe following packages and libraries have been installed:\033[0m"
