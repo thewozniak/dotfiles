@@ -4,6 +4,9 @@ alias reload='. ~/.zshrc'
 # Generate a random password of 24 characters
 alias getpasswd='echo `env LC_CTYPE=C tr -dc "A-Za-z0-9.$&^@!;" < /dev/urandom | head -c 24`'
 
+# Download Karabiner-elements configuration file (PL-key layout)
+alias karabiner='curl https://woz.ooo/dl/dotfiles/macOS/karabiner.json -o /Users/${USER}/.config/karabiner/karabiner.json'
+
 function killport() {
   if [ -z "$1" ]; then
     echo # empty line ;)
