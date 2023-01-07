@@ -29,9 +29,13 @@ During the installation process, you can install additional libraries available 
 + Visual Studio Code (VSCode)
 + NoSQLBooster for MongoDB
 + Realm Studio
++ DevUtils
++ Screens
 + Panic Nova
 + Little Snitch
-+ UTM
++ UTM (QEMU UI)
++ Sensei.app
++ Publii
 
 as well as utility applications from the Mac App Store:
 - 1Password 7
