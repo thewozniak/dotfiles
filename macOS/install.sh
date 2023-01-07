@@ -236,86 +236,86 @@ if [ "$answer" != "${answer#[Yy]}" ]; then
  brew install --cask mongodb-realm-studio
  echo # another empty line ;)
  read -p "Do you want to install VS Code? [y/n] " vscode
- if [ "$vscode" != "${answer#[Yy]}" ]; then
+ if [ "$vscode" != "${vscode#[Yy]}" ]; then
  # Install VS Code
  brew install --cask visual-studio-code
  fi
  echo # another empty line ;)
  read -p "Do you want to install DevUtils? [y/n] " devutils
- if [ "$devutils" != "${answer#[Yy]}" ]; then
+ if [ "$devutils" != "${devutils#[Yy]}" ]; then
  # Install DevUtils
  brew install --cask devutils
  fi
  echo # another empty line ;)
  read -p "Do you want to install Screens? [y/n] " screens
- if [ "$screens" != "${answer#[Yy]}" ]; then
+ if [ "$screens" != "${screens#[Yy]}" ]; then
  # Install Screens 4
  brew install --cask screens
  fi
  echo # another empty line ;)
  read -p "Do you want to install Panic Nova? [y/n] " nova
- if [ "$nova" != "${answer#[Yy]}" ]; then
+ if [ "$nova" != "${nova#[Yy]}" ]; then
  # Install Panic Nova
  brew install --cask nova
  fi
  echo # another empty line ;)
  read -p "Do you want to install Little Snitch? [y/n] " snitch
- if [ "$snitch" != "${answer#[Yy]}" ]; then
+ if [ "$snitch" != "${snitch#[Yy]}" ]; then
  # Install Little Snitch
  brew install --cask little-snitch
  fi
  echo # another empty line ;)
  read -p "Do you want to install UTM (QEMU Virtual Machines UI)? [y/n] " utm
- if [ "$utm" != "${answer#[Yy]}" ]; then
+ if [ "$utm" != "${utm#[Yy]}" ]; then
  # Install UTM (Virtual machines UI using QEMU)
  brew install --cask utm
  fi
  echo # another empty line ;)
  read -p "Do you want to install Sensei.app? [y/n] " sensei
- if [ "$sensei" != "${answer#[Yy]}" ]; then
+ if [ "$sensei" != "${sensei#[Yy]}" ]; then
  # Install Sensei
  brew install --cask sensei
  fi
  echo # another empty line ;)
  read -p "Do you want to install Publii? [y/n] " publii
- if [ "$publii" != "${answer#[Yy]}" ]; then
+ if [ "$publii" != "${publii#[Yy]}" ]; then
  brew install --cask publii
  fi
  # Download Karabiner-elements configuration file (PL-key layout)
  curl https://woz.ooo/dl/dotfiles/macOS/karabiner.json -o /Users/${USER}/.config/karabiner/karabiner-pol.json
  echo # another empty line ;)
  read -p "Do you want to install 1Password 7? [y/n] " onepass
- if [ "$onepass" != "${answer#[Yy]}" ]; then
+ if [ "$onepass" != "${onepass#[Yy]}" ]; then
  mas install 1333542190
  fi
  echo # another empty line ;)
  read -p "Do you want to install Twitter? [y/n] " twitter
- if [ "$twitter" != "${answer#[Yy]}" ]; then
+ if [ "$twitter" != "${twitter#[Yy]}" ]; then
  mas install 1482454543
  fi
  echo # another empty line ;)
  read -p "Do you want to install Commander One Pro? [y/n] " commander
- if [ "$commander" != "${answer#[Yy]}" ]; then
+ if [ "$commander" != "${commander#[Yy]}" ]; then
  mas install 1035237815
  fi
  echo # another empty line ;)
  read -p "Do you want to install HTTPBot? [y/n] " httpbot
- if [ "$httpbot" != "${answer#[Yy]}" ]; then
+ if [ "$httpbot" != "${httpbot#[Yy]}" ]; then
  mas install 1232603544
  fi
  echo # another empty line ;)
  read -p "Do you want to install Spark Mail? [y/n] " spark
- if [ "$spark" != "${answer#[Yy]}" ]; then
+ if [ "$spark" != "${spark#[Yy]}" ]; then
  mas install 1176895641
  fi
  echo # another empty line ;)
  read -p "Do you want to install 1Blocker? [y/n] " oneblock
- if [ "$oneblock" != "${answer#[Yy]}" ]; then
+ if [ "$oneblock" != "${oneblock#[Yy]}" ]; then
  mas install 1365531024
  fi
  echo # another empty line ;)
  read -p "Do you want to install HEIC Converter? [y/n] " heic
- if [ "$heic" != "${answer#[Yy]}" ]; then
+ if [ "$heic" != "${heic#[Yy]}" ]; then
  mas install 1294126402
  fi
 fi
