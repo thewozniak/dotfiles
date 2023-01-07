@@ -281,8 +281,6 @@ if [ "$answer" != "${answer#[Yy]}" ]; then
  if [ "$publii" != "${publii#[Yy]}" ]; then
  brew install --cask publii
  fi
- # Download Karabiner-elements configuration file (PL-key layout)
- curl https://woz.ooo/dl/dotfiles/macOS/karabiner.json -o /Users/${USER}/.config/karabiner/karabiner-pol.json
  echo # another empty line ;)
  read -p "Do you want to install 1Password 7? [y/n] " onepass
  if [ "$onepass" != "${onepass#[Yy]}" ]; then
