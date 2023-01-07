@@ -225,19 +225,59 @@ if [ "$answer" != "${answer#[Yy]}" ]; then
  brew install mas
  # Install Karabiner-elements
  brew install --cask karabiner-elements
- curl https://woz.ooo/dl/dotfiles/macOS/karabiner.json -o /Users/${USER}/.config/karabiner/karabiner.json
- # Install VS Code
- brew install --cask visual-studio-code
- # Install Panic Nova
- brew install --cask nova
- # Install NoSQLBooster for MongoDB
+  # Install NoSQLBooster for MongoDB
  brew install --cask nosqlbooster-for-mongodb
  # Install Realm Studio
  brew install --cask mongodb-realm-studio
+ echo # another empty line ;)
+ read -p "Do you want to install VS Code? [y/n] " vscode
+ if [ "$vscode" != "${answer#[Yy]}" ]; then
+ # Install VS Code
+ brew install --cask visual-studio-code
+ fi
+ echo # another empty line ;)
+ read -p "Do you want to install DevUtils? [y/n] " devutils
+ if [ "$devutils" != "${answer#[Yy]}" ]; then
+ # Install DevUtils
+ brew install --cask devutils
+ fi
+ echo # another empty line ;)
+ read -p "Do you want to install Screens? [y/n] " screens
+ if [ "$screens" != "${answer#[Yy]}" ]; then
+ # Install Screens 4
+ brew install --cask screens
+ fi
+ echo # another empty line ;)
+ read -p "Do you want to install Panic Nova? [y/n] " nova
+ if [ "$nova" != "${answer#[Yy]}" ]; then
+ # Install Panic Nova
+ brew install --cask nova
+ fi
+ echo # another empty line ;)
+ read -p "Do you want to install Little Snitch? [y/n] " snitch
+ if [ "$snitch" != "${answer#[Yy]}" ]; then
  # Install Little Snitch
  brew install --cask little-snitch
+ fi
+ echo # another empty line ;)
+ read -p "Do you want to install UTM (QEMU Virtual Machines UI)? [y/n] " utm
+ if [ "$utm" != "${answer#[Yy]}" ]; then
  # Install UTM (Virtual machines UI using QEMU)
  brew install --cask utm
+ fi
+ echo # another empty line ;)
+ read -p "Do you want to install Sensei.app? [y/n] " sensei
+ if [ "$sensei" != "${answer#[Yy]}" ]; then
+ # Install Sensei
+ brew install --cask sensei
+ fi
+ echo # another empty line ;)
+ read -p "Do you want to install Publii? [y/n] " publii
+ if [ "$publii" != "${answer#[Yy]}" ]; then
+ brew install --cask publii
+ fi
+ # Download Karabiner-elements configuration file (PL-key layout)
+ curl https://woz.ooo/dl/dotfiles/macOS/karabiner.json -o /Users/${USER}/.config/karabiner/karabiner-pol.json
  echo # another empty line ;)
  read -p "Do you want to install 1Password 7? [y/n] " onepass
  if [ "$onepass" != "${answer#[Yy]}" ]; then
@@ -246,7 +286,7 @@ if [ "$answer" != "${answer#[Yy]}" ]; then
  echo # another empty line ;)
  read -p "Do you want to install Twitter? [y/n] " twitter
  if [ "$twitter" != "${answer#[Yy]}" ]; then
- mas install 333903271
+ mas install 1482454543
  fi
  echo # another empty line ;)
  read -p "Do you want to install Commander One Pro? [y/n] " commander
@@ -261,7 +301,7 @@ if [ "$answer" != "${answer#[Yy]}" ]; then
  echo # another empty line ;)
  read -p "Do you want to install Spark Mail? [y/n] " spark
  if [ "$spark" != "${answer#[Yy]}" ]; then
- mas install 997102246
+ mas install 1176895641
  fi
  echo # another empty line ;)
  read -p "Do you want to install 1Blocker? [y/n] " oneblock
