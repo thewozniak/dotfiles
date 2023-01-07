@@ -1,7 +1,6 @@
 #!/bin/sh
 
 bash ${HOME}/.dotfiles/nginxssl.sh
-source ${HOME}/.dotfiles/nginxssl.sh
 
 # Ask the user if they want to prepare the development environment
 echo # just an empty line ;)
@@ -216,6 +215,7 @@ rm -rf ${HOME}/.zshrc
 curl https://raw.githubusercontent.com/thewozniak/dotfiles/main/macOS/.zshrc -o ~/.zshrc
 
 # Create and add SSL certificates for hosts
+source ${HOME}/.dotfiles/nginxssl.sh
 nginxssl localhost
 nginxssl dev.mac
 
