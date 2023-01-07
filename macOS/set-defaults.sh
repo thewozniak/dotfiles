@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# Ask the user if they want to set defaults
+echo # just an empty line ;)
+read -p "Do you want to set the default settings for your Mac? [y/n] " answer
+if [ "$answer" != "${answer#[Yy]}" ]; then
+
 # Close any open System Preferences panes, to prevent them from overriding settings we’re about to change
 osascript -e 'tell application "System Preferences" to quit'
 
@@ -487,3 +492,5 @@ fi
 
 # Display information about the need to restart the machine
 echo "\n[\033[1m\033[32mDONE\033[0m\033[0m] \033[1mNote that some of these changes require a restart to take effect.\033[0m\n\n"
+
+fi
