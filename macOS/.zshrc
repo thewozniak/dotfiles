@@ -1,6 +1,9 @@
 # Reload bash stuff
 alias reload='. ~/.zshrc'
 
+# Use pip instead of pip3
+alias pip='pip3 "$@"'
+
 # Generate a random password of 24 characters
 alias getpasswd='echo `env LC_CTYPE=C tr -dc "A-Za-z0-9.$&^@!;" < /dev/urandom | head -c 24`'
 
