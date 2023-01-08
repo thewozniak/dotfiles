@@ -283,11 +283,11 @@ if [ "$answer" != "${answer#[Yy]}" ]; then
  if [ "$publii" != "${publii#[Yy]}" ]; then
  brew install --cask publii
  fi
- #echo # another empty line ;)
- #read -p "Do you want to install 1Password 7? [y/n] " onepass
- #if [ "$onepass" != "${onepass#[Yy]}" ]; then
- #mas install 1333542190
- #fi
+ echo # another empty line ;)
+ read -p "Do you want to install The Unarchiver? [y/n] " unarch
+ if [ "$unarch" != "${unarch#[Yy]}" ]; then
+ mas install 425424353
+ fi
  echo # another empty line ;)
  read -p "Do you want to install Twitter? [y/n] " twitter
  if [ "$twitter" != "${twitter#[Yy]}" ]; then
