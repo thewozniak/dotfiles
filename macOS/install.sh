@@ -226,6 +226,8 @@ database+=("Nginx Web Server")
 echo # another empty line ;)
 read -p "Do you want to install essential apps? [y/n] " answer
 if [ "$answer" != "${answer#[Yy]}" ]; then
+ # Download 1Password 7
+ curl https://woz.ooo/dl/1Password-7.9.6.pkg -o ~/Downloads/1Password-7.9.6.pkg
  # Install Mac App Store command-line interface
  brew install mas
  # Install Karabiner-elements
