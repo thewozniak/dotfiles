@@ -45,6 +45,7 @@ as well as utility applications from the Mac App Store:
 - Spark Mail
 - 1Blocker
 - HEIC Converter
+- The Unarchiver
 
 <br />
 
