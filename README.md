@@ -29,6 +29,7 @@ During the installation process, you can install additional libraries available 
 + Visual Studio Code (VSCode)
 + NoSQLBooster for MongoDB
 + Realm Studio
++ AppCleaner
 + DevUtils
 + Screens
 + Panic Nova
@@ -38,7 +39,6 @@ During the installation process, you can install additional libraries available 
 + Publii
 
 as well as utility applications from the Mac App Store:
-- 1Password 7
 - Twitter
 - Commander One Pro
 - HTTPBot
