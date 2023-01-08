@@ -200,29 +200,28 @@ echo "[\033[1mSetting up\033[0m] Siri & Spotlight settings..."
 # Disable Ask Siri
 defaults write com.apple.Siri StatusMenuVisible -bool false
 
-# Enable Applications, System Preferences, Directories, Developer, Documents, and Fonts search results in Spotlight
-defaults write com.apple.spotlight orderedItems -array '{"enabled" = 1;"name" = "APPLICATIONS";}'
-defaults write com.apple.spotlight orderedItems -array '{"enabled" = 1;"name" = "SYSTEM_PREFS";}'
-defaults write com.apple.spotlight orderedItems -array '{"enabled" = 1;"name" = "DIRECTORIES";}'
-defaults write com.apple.spotlight orderedItems -array '{"enabled" = 1;"name" = "DOCUMENTS";}'
-defaults write com.apple.spotlight orderedItems -array '{"enabled" = 1;"name" = "FONTS";}'
-defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "PDF";}'
-defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "MESSAGES";}'
-defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "CONTACT";}'
-defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "EVENT_TODO";}'
-defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "IMAGES";}'
-defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "BOOKMARKS";}'
-defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "MUSIC";}'
-defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "MOVIES";}'
-defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "PRESENTATIONS";}'
-defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "SPREADSHEETS";}'
-defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "SOURCE";}'
-defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "MENU_DEFINITION";}'
-defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "MENU_OTHER";}'
-defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "MENU_CONVERSION";}'
-defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "MENU_EXPRESSION";}'
-defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "MENU_WEBSEARCH";}'
-defaults write com.apple.spotlight orderedItems -array '{"enabled" = 0;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}'
+# Enable Applications, System Preferences, Directories, Documents search results in Spotlight
+defaults write com.apple.spotlight orderedItems -array \
+	'{ enabled = 1; name = APPLICATIONS; }' \
+	'{ enabled = 0; name = BOOKMARKS; }' \
+	'{ enabled = 0; name = "MENU_EXPRESSION";}' \
+	'{ enabled = 0; name = CONTACT; }' \
+	'{ enabled = 0; name = "MENU_CONVERSION"; }' \
+	'{ enabled = 0; name = "MENU_DEFINITION"; }' \
+	'{ enabled = 1; name = DOCUMENTS; }' \
+	'{ enabled = 0; name = "EVENT_TODO"; }' \
+	'{ enabled = 1; name = DIRECTORIES; }' \
+	'{ enabled = 0; name = FONTS; }' \
+	'{ enabled = 0; name = IMAGES; }' \
+	'{ enabled = 0; name = MESSAGES; }' \
+	'{ enabled = 0; name = MOVIES; }' \
+	'{ enabled = 0; name = MUSIC; }' \
+	'{ enabled = 0; name = "MENU_OTHER"; }' \
+	'{ enabled = 0; name = PDF; }' \
+	'{ enabled = 0; name = PRESENTATIONS; }' \
+	'{ enabled = 0; name = "MENU_SPOTLIGHT_SUGGESTIONS"; }' \
+	'{ enabled = 0; name = SPREADSHEETS; }' \
+	'{ enabled = 1; name = "SYSTEM_PREFS"; }'
 
 # Load new settings before rebuilding the index
 killall mds > /dev/null 2>&1
